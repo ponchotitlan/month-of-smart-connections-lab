@@ -31,7 +31,7 @@ Each week of February, a new folder with working examples will be published:
 
 | Week | Release Date | Folder |
 |------|--------------|--------|
-| Week 1 | Thursday, Feb 5 | `week-01-nso-multivendor` 🔗 |
+| Week 1 | Thursday, Feb 5 | `week-01-automation-multivendor` 🔗 |
 | Week 2 | Thursday, Feb 12 | `week-02-automation-patterns` ⚙️ |
 | Week 3 | Thursday, Feb 19 | `week-03-automation-testing` ✅ |
 | Week 4 | Thursday, Feb 26 | `week-04-agentic-automation` 🤖 |
@@ -42,7 +42,7 @@ Each week of February, a new folder with working examples will be published:
 
 | Folder | Sample Name | Description |
 |--------|------------|-------------|
-| [week-01-nso-multivendor](https://github.com/ponchotitlan/month-of-smart-connections-lab/tree/main/week-01-nso-multivendor) 🔗 | **Loving All Vendors** | Pull device inventory & interface state from multivendor networks using Cisco NSO. One API, zero vendor drama. 🔗🤝🤖 |
+| [week-01-automation-multivendor](https://github.com/ponchotitlan/month-of-smart-connections-lab/tree/main/week-01-automation-multivendor/) 🔗 | **Loving All Vendors** | Pull device inventory & interface state from multivendor networks using Cisco NSO. One API, zero vendor drama. 🔗🤝🤖 |
 | `week-02-automation-patterns` ⚙️ | **Choose Your Love Language** | Demonstrate the same network task using Python, Ansible, and CI/CD pipelines. Pick your style! 🐍📦🔄 |
 | `week-03-automation-testing` ✅ | **Trust Issues** | Validate your network automation with pyATS tests & pre/post checks. Safety first! ✅🛡️ |
 | `week-04-agentic-automation` 🤖 | **Intentions Matter** | Prototype agentic automation with AI/intent-driven workflows for network tasks. 💡🤖⚡ |
