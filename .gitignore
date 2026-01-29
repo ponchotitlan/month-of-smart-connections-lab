@@ -1,4 +1,5 @@
 .venv
+.DS_Store
 week-01-nso-multivendor/fortinet-fortios-cli-5.11/
 week-01-nso-multivendor/juniper-junos-nc-4.18/
 week-01-nso-multivendor/cisco-asa-cli-6.18/
