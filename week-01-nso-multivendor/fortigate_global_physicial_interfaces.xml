@@ -1,0 +1,122 @@
+<config xmlns="http://tail-f.com/ns/ncs">
+  <global xmlns="http://tail-f.com/ned/fortinet-fortios">
+    <system>
+      <interface>
+        <interface-list>
+          <name>port3</name>
+
+          <allowaccess>https</allowaccess>
+          <allowaccess>ping</allowaccess>
+          <allowaccess>ssh</allowaccess>
+
+          <status>up</status>
+          <vdom>root</vdom>
+          <type>physical</type>
+
+          <ip>
+            <ip-mask>
+              <class_ip>192.168.1.3</class_ip>
+              <net_mask>255.255.255.0</net_mask>
+            </ip-mask>
+          </ip>
+        </interface-list>
+      </interface>
+    </system>
+  </global>
+  <global xmlns="http://tail-f.com/ned/fortinet-fortios">
+    <system>
+      <interface>
+        <interface-list>
+          <name>port4</name>
+
+          <allowaccess>https</allowaccess>
+          <allowaccess>ping</allowaccess>
+          <allowaccess>ssh</allowaccess>
+
+          <status>up</status>
+          <vdom>root</vdom>
+          <type>physical</type>
+
+          <ip>
+            <ip-mask>
+              <class_ip>192.168.1.4</class_ip>
+              <net_mask>255.255.255.0</net_mask>
+            </ip-mask>
+          </ip>
+        </interface-list>
+      </interface>
+    </system>
+  </global>
+  <global xmlns="http://tail-f.com/ned/fortinet-fortios">
+    <system>
+      <interface>
+        <interface-list>
+          <name>port5</name>
+
+          <allowaccess>https</allowaccess>
+          <allowaccess>ping</allowaccess>
+          <allowaccess>ssh</allowaccess>
+
+          <status>up</status>
+          <vdom>root</vdom>
+          <type>physical</type>
+
+          <ip>
+            <ip-mask>
+              <class_ip>192.168.1.5</class_ip>
+              <net_mask>255.255.255.0</net_mask>
+            </ip-mask>
+          </ip>
+        </interface-list>
+      </interface>
+    </system>
+  </global>
+  <global xmlns="http://tail-f.com/ned/fortinet-fortios">
+    <system>
+      <interface>
+        <interface-list>
+          <name>port6</name>
+
+          <allowaccess>https</allowaccess>
+          <allowaccess>ping</allowaccess>
+          <allowaccess>ssh</allowaccess>
+
+          <status>up</status>
+          <vdom>root</vdom>
+          <type>physical</type>
+
+          <ip>
+            <ip-mask>
+              <class_ip>192.168.1.6</class_ip>
+              <net_mask>255.255.255.0</net_mask>
+            </ip-mask>
+          </ip>
+        </interface-list>
+      </interface>
+    </system>
+  </global>
+  <global xmlns="http://tail-f.com/ned/fortinet-fortios">
+    <system>
+      <interface>
+        <interface-list>
+          <name>port7</name>
+
+          <allowaccess>https</allowaccess>
+          <allowaccess>ping</allowaccess>
+          <allowaccess>ssh</allowaccess>
+
+          <status>up</status>
+          <vdom>root</vdom>
+          <type>physical</type>
+
+          <ip>
+            <ip-mask>
+              <class_ip>192.168.1.7</class_ip>
+              <net_mask>255.255.255.0</net_mask>
+            </ip-mask>
+          </ip>
+        </interface-list>
+      </interface>
+    </system>
+  </global>
+</config>

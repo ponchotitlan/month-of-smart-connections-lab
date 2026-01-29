@@ -31,7 +31,7 @@ RESTCONF_URLS = {
     'get_platform': '/restconf/data/tailf-ncs:devices/device={device}/device-type/{connection_type}/ned-id',
     'get_interfaces_asa': '/restconf/data/tailf-ncs:devices/device={device}/config/tailf-ned-cisco-asa:interface',
     'get_interfaces_iosxr': '/restconf/data/tailf-ncs:devices/device={device}/config/tailf-ned-cisco-ios-xr:interface',
-    'get_interfaces_juniper': '/restconf/data/tailf-ncs:devices/device={device}/config/junos:configuration/interfaces/interface?fields=name;unit/family/inet/address/name',
+    'get_interfaces_juniper': '/restconf/data/tailf-ncs:devices/device={device}/config/junos:configuration/interfaces/interface',
     'get_interfaces_fortinet': '/restconf/data/tailf-ncs:devices/device={device}/config/tailf-ned-fortinet-fortios:global/system/interface'
 }
 
@@ -227,7 +227,7 @@ def get_interfaces(base_url: str, auth: HTTPBasicAuth, device: str, platform: st
 # ============================================================================
 
 def parse_interfaces(interface_data: Dict, platform: str, device: str) -> List[Dict[str, str]]:
-    """Parse interface data into a standardized format."""
+    """Parse interface data into a standardized format with IP address extraction."""
     interfaces = []
     platform_lower = platform.lower()
     
@@ -237,9 +237,30 @@ def parse_interfaces(interface_data: Dict, platform: str, device: str) -> List[D
             for int_type, int_list in interface_data.get('tailf-ned-cisco-asa:interface', {}).items():
                 if isinstance(int_list, list):
                     for interface in int_list:
+                        # Extract IP address for ASA
+                        ip_address = ''
+                        if 'ip' in interface and 'address' in interface['ip']:
+                            addr_data = interface['ip']['address']
+                            if 'ip' in addr_data and 'host-ip' in addr_data['ip']:
+                                host_ip = addr_data['ip']['host-ip']
+                                # Check for subnet mask
+                                if 'mask' in addr_data.get('ip', {}):
+                                    mask = addr_data['ip']['mask']
+                                    ip_address = f"{host_ip} {mask}"
+                                else:
+                                    ip_address = host_ip
+                        
+                        # Build interface name
+                        interface_name = interface.get('name', interface.get('id', 'N/A'))
+                        if interface_name != 'N/A' and int_type:
+                            full_name = f"{int_type}{interface_name}"
+                        else:
+                            full_name = interface_name
+                        
                         interfaces.append({
-                            'name': interface.get('id', 'N/A'),
+                            'name': full_name,
                             'type': int_type,
+                            'ip_address': ip_address,
                             'status': 'Configured',
                             'description': interface.get('description', '')
                         })
@@ -249,9 +270,26 @@ def parse_interfaces(interface_data: Dict, platform: str, device: str) -> List[D
             for int_type, int_list in interface_data.get('tailf-ned-cisco-ios-xr:interface', {}).items():
                 if isinstance(int_list, list):
                     for interface in int_list:
+                        # Extract IP address for IOS-XR
+                        ip_address = ''
+                        if 'ipv4' in interface and 'address' in interface['ipv4']:
+                            addr_data = interface['ipv4']['address']
+                            ip = addr_data.get('ip', '')
+                            mask = addr_data.get('mask', '')
+                            if ip:
+                                ip_address = f"{ip} {mask}" if mask else ip
+                        
+                        # Build interface name
+                        interface_id = interface.get('id', 'N/A')
+                        if interface_id != 'N/A' and int_type:
+                            full_name = f"{int_type}{interface_id}"
+                        else:
+                            full_name = interface_id
+                        
                         interfaces.append({
-                            'name': interface.get('id', 'N/A'),
+                            'name': full_name,
                             'type': int_type,
+                            'ip_address': ip_address,
                             'status': 'Configured',
                             'description': interface.get('description', '')
                         })
@@ -259,21 +297,77 @@ def parse_interfaces(interface_data: Dict, platform: str, device: str) -> List[D
         elif 'juniper' in platform_lower or 'junos' in platform_lower:
             # Parse Juniper interfaces
             for interface in interface_data.get('junos:interface', []):
+                # Extract IP addresses from units
+                ip_addresses = []
+                if 'unit' in interface:
+                    for unit in interface['unit']:
+                        if 'family' in unit and 'inet' in unit['family']:
+                            inet_family = unit['family']['inet']
+                            if 'address' in inet_family:
+                                for addr in inet_family['address']:
+                                    if 'name' in addr:
+                                        ip_addresses.append(addr['name'])
+                
+                ip_address = ', '.join(ip_addresses) if ip_addresses else ''
+                
                 interfaces.append({
                     'name': interface.get('name', 'N/A'),
-                    'type': 'Juniper Interface',
+                    'type': 'Physical',
+                    'ip_address': ip_address,
                     'status': 'Configured',
                     'description': interface.get('description', '')
                 })
                 
         elif 'fortinet' in platform_lower or 'fortios' in platform_lower:
             # Parse Fortinet interfaces
-            for interface in interface_data.get('tailf-ned-fortinet-fortios:interface', []):
+            fortinet_data = interface_data.get('tailf-ned-fortinet-fortios:interface', {})
+            
+            # Handle nested interface-list structure
+            if isinstance(fortinet_data, dict) and 'interface-list' in fortinet_data:
+                interface_list = fortinet_data['interface-list']
+            elif isinstance(fortinet_data, list):
+                interface_list = fortinet_data
+            else:
+                interface_list = []
+            
+            for interface in interface_list:
+                # Extract IP address for Fortinet
+                ip_address = ''
+                if 'ip' in interface and 'ip-mask' in interface['ip']:
+                    ip_mask = interface['ip']['ip-mask']
+                    class_ip = ip_mask.get('class_ip', '')
+                    net_mask = ip_mask.get('net_mask', '')
+                    if class_ip and net_mask:
+                        ip_address = f"{class_ip} {net_mask}"
+                    elif class_ip:
+                        ip_address = class_ip
+                
+                # Extract access information for description
+                access_info = ''
+                if 'allowaccess' in interface:
+                    access_list = interface['allowaccess']
+                    if isinstance(access_list, list):
+                        access_info = ', '.join(access_list)
+                    else:
+                        access_info = str(access_list)
+                
+                # Build description from available info
+                description_parts = []
+                if access_info:
+                    description_parts.append(f"Access: {access_info}")
+                if 'vdom' in interface:
+                    description_parts.append(f"VDOM: {interface['vdom']}")
+                if interface.get('description'):
+                    description_parts.append(interface['description'])
+                
+                description = ' | '.join(description_parts) if description_parts else ''
+                
                 interfaces.append({
                     'name': interface.get('name', 'N/A'),
                     'type': interface.get('type', 'N/A'),
-                    'status': interface.get('status', 'N/A'),
-                    'description': interface.get('description', '')
+                    'ip_address': ip_address,
+                    'status': interface.get('status', 'unknown'),
+                    'description': description
                 })
                 
     except Exception as e:
@@ -312,15 +406,27 @@ def display_device_interfaces(device: str, platform: str, interfaces: List[Dict[
     # Prepare table data
     table_data = []
     for idx, interface in enumerate(interfaces, 1):
+        # Truncate long descriptions and IP addresses intelligently
+        description = interface.get('description', '')
+        max_desc_length = 40
+        if len(description) > max_desc_length:
+            description = description[:max_desc_length-3] + '...'
+        
+        ip_address = interface.get('ip_address', '')
+        max_ip_length = 30
+        if len(ip_address) > max_ip_length:
+            ip_address = ip_address[:max_ip_length-3] + '...'
+        
         table_data.append([
             idx,
             interface.get('name', 'N/A'),
             interface.get('type', 'N/A'),
+            ip_address if ip_address else '-',
             interface.get('status', 'N/A'),
-            interface.get('description', '')[:40]  # Truncate long descriptions
+            description
         ])
     
-    headers = ['#', 'Interface Name', 'Type', 'Status', 'Description']
+    headers = ['#', 'Interface Name', 'Type', 'IP Address', 'Status', 'Description']
     print(tabulate(table_data, headers=headers, tablefmt='fancy_grid'))
     print(f"\n💡 Total interfaces: {len(interfaces)}\n")
 
