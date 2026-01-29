@@ -1,4 +1,4 @@
-# Week 1: NSO Loves All Vendors
+# Week 1: Loving All Vendors
 
 **Part of the [Month of Smart Connections Lab](https://github.com/ponchotitlan/month-of-smart-connections-lab)**
 
