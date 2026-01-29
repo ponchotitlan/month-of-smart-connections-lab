@@ -18,7 +18,7 @@
 
 ---
 
-Welcome to **Month of Smart Connections**! Every Thursday this February, we’re releasing bite-sized network automation code samples and demos to help you connect, automate, and innovate—no matter the vendor.
+Welcome to **Month of Smart Connections**! Every Thursday this February, we’re releasing bite-sized network automation code samples and demos to help you connect, automate, and innovate — no matter the vendor.
 
 
 Think of this as your **weekly dose of network love and friendship**, delivered with real-world code you can run and learn from. 🚀
@@ -31,11 +31,10 @@ Each week of February, a new folder with working examples will be published:
 
 | Week | Release Date | Folder |
 |------|--------------|--------|
-| Week 1 | Thursday, Feb 1 | `week-01-nso-multivendor` 🔗 |
-| Week 2 | Thursday, Feb 8 | `week-02-automation-patterns` ⚙️ |
-| Week 3 | Thursday, Feb 15 | `week-03-open-source-integration` 🌐 |
-| Week 4 | Thursday, Feb 22 | `week-04-agentic-automation` 🤖 |
-| Week 5 (optional) | Thursday, Feb 29 | `week-05-automation-testing` ✅ |
+| Week 1 | Thursday, Feb 5 | `week-01-nso-multivendor` 🔗 |
+| Week 2 | Thursday, Feb 12 | `week-02-automation-patterns` ⚙️ |
+| Week 3 | Thursday, Feb 19 | `week-03-open-source-integration` 🌐 |
+| Week 4 | Thursday, Feb 26 | `week-04-agentic-automation` 🤖 |
 
 ---
 
@@ -43,11 +42,10 @@ Each week of February, a new folder with working examples will be published:
 
 | Folder | Sample Name | Description |
 |--------|------------|-------------|
-| `week-01-nso-multivendor` 🔗 | NSO Loves All Vendors | Pull device inventory & interface state from multivendor networks using Cisco NSO. One API, zero vendor drama. |
+| [week-01-nso-multivendor](https://github.com/ponchotitlan/month-of-smart-connections-lab/tree/main/week-01-nso-multivendor) 🔗 | NSO Loves All Vendors | Pull device inventory & interface state from multivendor networks using Cisco NSO. One API, zero vendor drama. |
 | `week-02-automation-patterns` ⚙️ | 3 Ways to Automate | Demonstrate the same network task using Python, Ansible, and CI/CD pipelines. Pick your style! 🐍📦🔄 |
 | `week-03-open-source-integration` 🌐 | Cisco + Open Source | Integrate Cisco devices with open-source tools (NetBox + Ansible) to automate inventory & configuration. 🌐🤖 |
 | `week-04-agentic-automation` 🤖 | From Intent to Action | Prototype agentic automation with AI/intent-driven workflows for network tasks. 💡🤖⚡ |
-| `week-05-automation-testing` ✅ | Automation You Can Trust | Validate your network automation with pyATS tests & pre/post checks. Safety first! ✅🛡️ |
 
 ---
 

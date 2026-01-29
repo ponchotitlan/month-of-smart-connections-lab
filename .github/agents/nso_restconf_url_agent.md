@@ -1,5 +1,5 @@
 ---
-name: NSO RESTCONF & YANG Assistant
+name: NSO RESTCONF URL Agent
 description: Analyze YANG models and generate RESTCONF URLs, curl examples, and Python snippets for Cisco NSO usage.
 tools: ['githubRepo', 'read', 'search']
 target: vscode

@@ -1,5 +1,5 @@
 ---
-name: NSO XML Payload Generator
+name: NSO XML Payload Agent
 description: Generate accurate XML payloads for Cisco NSO device configuration based on provided YANG models. Produces both CLI and RESTCONF formats.
 tools: ['githubRepo', 'read', 'search']
 target: vscode
