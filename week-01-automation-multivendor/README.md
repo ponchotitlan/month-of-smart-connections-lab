@@ -38,11 +38,11 @@ git clone https://github.com/ponchotitlan/month-of-smart-connections-lab.git
 ```
 
 ```bash
-cd week-01-nso-multivendor && pip install -r requirements.txt
+cd week-01-automation-multivendor && pip install -r requirements.txt
 ```
 
 ### 1. Multi-Vendor XML Configuration Pusher
-**📁 File:** [nso_restconf_config_pusher.py](https://github.com/ponchotitlan/month-of-smart-connections-lab/blob/main/week-01-nso-multivendor/nso_restconf_config_pusher.py)
+**📁 File:** [nso_restconf_config_pusher.py](https://github.com/ponchotitlan/month-of-smart-connections-lab/blob/main/week-01-automation-multivendor/nso_restconf_config_pusher.py)
 
 Push XML configuration payloads to NSO devices via RESTCONF. Supports batch processing of multiple configurations with detailed success/failure reporting.
 
@@ -150,7 +150,7 @@ Simply drag the folder of your NED and ask it to provide the structure of the co
 
 
 ### 2. Multi-Vendor Interface Query Tool
-**📁 File:** [nso_restconf_multivendor_queries.py](https://github.com/ponchotitlan/month-of-smart-connections-lab/blob/main/week-01-nso-multivendor/nso_restconf_multivendor_queries.py)
+**📁 File:** [nso_restconf_multivendor_queries.py](https://github.com/ponchotitlan/month-of-smart-connections-lab/blob/main/week-01-automation-multivendor/nso_restconf_multivendor_queries.py)
 
 Query network devices managed by NSO and display their interface information in clean ASCII tables. Supports Cisco (ASA, IOS-XR), Juniper (Junos), and Fortinet (FortiOS) platforms - but go ahead and add your own devices and parsers!
 
