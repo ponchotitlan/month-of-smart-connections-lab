@@ -1,0 +1,70 @@
+<config xmlns="http://tail-f.com/ns/ncs">
+  <interface xmlns="http://cisco.com/ned/asa">
+    
+    <!-- Outside Interface -->
+    <GigabitEthernet>
+      <name>0/0</name>
+      <nameif>outside</nameif>
+      <security-level>0</security-level>
+      <ip>
+        <address>
+          <ip>
+            <host-ip>203.0.113.1</host-ip>
+            <netmask>255.255.255.252</netmask>
+          </ip>
+        </address>
+      </ip>
+      <description>Outside Internet Interface</description>
+    </GigabitEthernet>
+    
+    <!-- Inside Interface -->
+    <GigabitEthernet>
+      <name>0/1</name>
+      <nameif>inside</nameif>
+      <security-level>100</security-level>
+      <ip>
+        <address>
+          <ip>
+            <host-ip>192.168.1.1</host-ip>
+            <netmask>255.255.255.0</netmask>
+          </ip>
+        </address>
+      </ip>
+      <description>Inside Corporate Network</description>
+    </GigabitEthernet>
+    
+    <!-- DMZ VLAN -->
+    <Vlan>
+      <name>10</name>
+      <nameif>dmz</nameif>
+      <security-level>50</security-level>
+      <ip>
+        <address>
+          <ip>
+            <host-ip>10.10.10.1</host-ip>
+            <netmask>255.255.255.0</netmask>
+          </ip>
+        </address>
+      </ip>
+      <description>DMZ for Web Servers</description>
+    </Vlan>
+    
+    <!-- Management Interface -->
+    <Management>
+      <name>0/0</name>
+      <nameif>management</nameif>
+      <security-level>100</security-level>
+      <management-only/>
+      <ip>
+        <address>
+          <ip>
+            <host-ip>192.168.100.10</host-ip>
+            <netmask>255.255.255.0</netmask>
+          </ip>
+        </address>
+      </ip>
+      <description>Management Interface</description>
+    </Management>
+    
+  </interface>
+</config>

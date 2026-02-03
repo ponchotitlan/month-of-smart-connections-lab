@@ -1,0 +1,44 @@
+<config xmlns="http://tail-f.com/ns/ncs">
+  <interface xmlns="http://tail-f.com/ned/cisco-ios-xr">
+    <GigabitEthernet>
+      <id>0/0/0/0</id>
+      <description>Uplink to Core Router CR01</description>
+      <ipv4>
+        <address>
+          <ip>192.168.1.1</ip>
+          <mask>255.255.255.0</mask>
+        </address>
+      </ipv4>
+    </GigabitEthernet>
+    <GigabitEthernet>
+      <id>0/0/0/1</id>
+      <description>Uplink to Core Router CR02</description>
+      <ipv4>
+        <address>
+          <ip>192.168.1.2</ip>
+          <mask>255.255.255.0</mask>
+        </address>
+      </ipv4>
+    </GigabitEthernet>
+    <GigabitEthernet>
+      <id>0/0/0/2</id>
+      <description>Uplink to Core Router CR03</description>
+      <ipv4>
+        <address>
+          <ip>192.168.1.3</ip>
+          <mask>255.255.255.0</mask>
+        </address>
+      </ipv4>
+    </GigabitEthernet>
+    <GigabitEthernet>
+      <id>0/0/0/3</id>
+      <description>Uplink to Core Router CR04</description>
+      <ipv4>
+        <address>
+          <ip>192.168.1.4</ip>
+          <mask>255.255.255.0</mask>
+        </address>
+      </ipv4>
+    </GigabitEthernet>
+  </interface>
+</config>
