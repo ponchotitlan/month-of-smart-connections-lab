@@ -1,0 +1,80 @@
+name: Ansible Network Automation CI
+
+# Manual trigger only - no automatic runs on commits
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        default: 'get_interfaces'
+        type: choice
+        options:
+          - get_interfaces
+          - configure_interfaces
+          - both
+      target_host:
+        description: 'Target host (leave empty for all)'
+        required: false
+        type: string
+
+jobs:
+  ansible-automation:
+    runs-on: self-hosted
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python virtual environment
+        run: |
+          if [ ! -d ".venv" ]; then
+            python3 -m venv .venv
+          fi
+          source .venv/bin/activate
+          pip install --upgrade pip
+          pip install -r week-02-automation-patterns/02-ansible/requirements.txt
+      
+      - name: Run - Get Interfaces
+        if: ${{ github.event.inputs.action == 'get_interfaces' || github.event.inputs.action == 'both' }}
+        working-directory: week-02-automation-patterns/02-ansible
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'False'
+        run: |
+          source ../../.venv/bin/activate
+          if [ -n "${{ github.event.inputs.target_host }}" ]; then
+            ansible-playbook get_interfaces.yml --limit "${{ github.event.inputs.target_host }}"
+          else
+            ansible-playbook get_interfaces.yml
+          fi
+      
+      - name: Run - Configure Interfaces
+        if: ${{ github.event.inputs.action == 'configure_interfaces' || github.event.inputs.action == 'both' }}
+        working-directory: week-02-automation-patterns/02-ansible
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'False'
+        run: |
+          source ../../.venv/bin/activate
+          if [ -n "${{ github.event.inputs.target_host }}" ]; then
+            ansible-playbook configure_interfaces.yml --limit "${{ github.event.inputs.target_host }}"
+          else
+            ansible-playbook configure_interfaces.yml
+          fi
+      
+      - name: Upload Ansible outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ansible-outputs-${{ github.run_number }}
+          path: week-02-automation-patterns/02-ansible/output/
+          retention-days: 30
+      
+      - name: Upload Ansible logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ansible-logs-${{ github.run_number }}
+          path: |
+            week-02-automation-patterns/02-ansible/*.log
+          retention-days: 7
+          if-no-files-found: ignore
