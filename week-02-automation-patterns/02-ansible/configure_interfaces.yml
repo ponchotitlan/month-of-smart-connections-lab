@@ -1,0 +1,105 @@
+---
+###############################################################################
+# Playbook: Configure Interfaces using gNMI and OpenConfig
+# 
+# This playbook configures network interfaces on devices
+# using gNMI with OpenConfig models via pygnmi.
+###############################################################################
+
+- name: Configure Interfaces via gNMI
+  hosts: network_devices
+  gather_facts: false
+  connection: local
+  
+  tasks:
+    - name: Validate interface configuration exists
+      ansible.builtin.assert:
+        that:
+          - interfaces is defined
+          - interfaces | length > 0
+        fail_msg: "No interface configuration found. Please define 'interfaces' in host_vars."
+        success_msg: "Found {{ interfaces | length }} interface(s) to configure"
+    
+    - name: Configure each interface using OpenConfig
+      gnmi_set:
+        host: "{{ ansible_host }}"
+        port: "{{ ansible_port }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        insecure: true
+        update:
+          - path: "openconfig-interfaces:interfaces/interface"
+            value:
+              name: "{{ item.name }}"
+              config: >-
+                {%- set if_type_value -%}
+                {%- if 'loopback' in item.name | lower -%}iana-if-type:softwareLoopback
+                {%- elif 'tunnel' in item.name | lower -%}iana-if-type:tunnel
+                {%- elif 'vlan' in item.name | lower -%}iana-if-type:l3ipvlan
+                {%- elif 'bundle' in item.name | lower or 'port-channel' in item.name | lower -%}iana-if-type:ieee8023adLag
+                {%- elif item.name | lower | regex_search('gigabit|ethernet|eth|ge|te|fortygige|hundredgige') -%}iana-if-type:ethernetCsmacd
+                {%- else -%}iana-if-type:other
+                {%- endif -%}
+                {%- endset -%}
+                {%- set config = {
+                  'name': item.name,
+                  'type': if_type_value | trim,
+                  'description': item.description | default('Configured by Ansible'),
+                  'enabled': item.enabled | default(true)
+                } -%}
+                {%- if 'loopback' not in item.name | lower -%}
+                  {%- set _ = config.update({'mtu': item.mtu | default(1500)}) -%}
+                {%- endif -%}
+                {{ config }}
+              subinterfaces:
+                subinterface:
+                  - index: 0
+                    openconfig-if-ip:ipv4:
+                      addresses:
+                        address:
+                          - ip: "{{ item.ipv4_address }}"
+                            config:
+                              ip: "{{ item.ipv4_address }}"
+                              prefix-length: "{{ item.ipv4_prefix_length }}"
+      loop: "{{ interfaces }}"
+      loop_control:
+        label: "{{ item.name }}"
+      when: item.ipv4_address is defined
+      register: config_result
+
+    - name: Configure interfaces without IP (basic config only)
+      gnmi_set:
+        host: "{{ ansible_host }}"
+        port: "{{ ansible_port }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        insecure: true
+        update:
+          - path: "openconfig-interfaces:interfaces/interface"
+            value:
+              name: "{{ item.name }}"
+              config:
+                name: "{{ item.name }}"
+                type: >-
+                  {%- if 'loopback' in item.name | lower -%}iana-if-type:softwareLoopback
+                  {%- elif 'tunnel' in item.name | lower -%}iana-if-type:tunnel
+                  {%- elif 'vlan' in item.name | lower -%}iana-if-type:l3ipvlan
+                  {%- elif 'bundle' in item.name | lower or 'port-channel' in item.name | lower -%}iana-if-type:ieee8023adLag
+                  {%- elif item.name | lower | regex_search('gigabit|ethernet|eth|ge|te|fortygige|hundredgige') -%}iana-if-type:ethernetCsmacd
+                  {%- else -%}iana-if-type:other
+                  {%- endif -%}
+                description: "{{ item.description | default('Configured by Ansible') }}"
+                enabled: "{{ item.enabled | default(true) }}"
+                mtu: "{{ item.mtu | default(1500) }}"
+      loop: "{{ interfaces }}"
+      loop_control:
+        label: "{{ item.name }}"
+      when: item.ipv4_address is not defined
+      register: config_basic_result
+      
+    - name: Display configuration summary
+      ansible.builtin.debug:
+        msg: |
+          ================================================
+          Successfully configured {{ interfaces | length }} interface(s) on {{ inventory_hostname }}
+          ================================================
