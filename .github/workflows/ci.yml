@@ -27,11 +27,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       
+      - name: Cache Python virtual environment
+        uses: actions/cache@v4
+        id: cache-venv
+        with:
+          path: .venv
+          key: ${{ runner.os }}-venv-${{ hashFiles('week-02-automation-patterns/02-ansible/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-venv-
+      
       - name: Set up Python virtual environment
+        if: steps.cache-venv.outputs.cache-hit != 'true'
         run: |
-          if [ ! -d ".venv" ]; then
-            python3 -m venv .venv
-          fi
+          python3 -m venv .venv
           source .venv/bin/activate
           pip install --upgrade pip
           pip install -r week-02-automation-patterns/02-ansible/requirements.txt
@@ -45,6 +53,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      
+      - name: Restore Python virtual environment
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: ${{ runner.os }}-venv-${{ hashFiles('week-02-automation-patterns/02-ansible/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-venv-
       
       - name: Run Get Interfaces Playbook
         working-directory: week-02-automation-patterns/02-ansible
@@ -78,6 +94,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      
+      - name: Restore Python virtual environment
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: ${{ runner.os }}-venv-${{ hashFiles('week-02-automation-patterns/02-ansible/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-venv-
       
       - name: Run Configure Interfaces Playbook
         working-directory: week-02-automation-patterns/02-ansible
