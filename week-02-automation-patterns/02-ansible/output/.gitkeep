@@ -1,0 +1,7 @@
+# Output Directory
+
+This directory stores retrieved interface data from network devices.
+
+Each file is named: `<device_name>_interfaces.json`
+
+Files are created automatically when running `get_interfaces.yml`.

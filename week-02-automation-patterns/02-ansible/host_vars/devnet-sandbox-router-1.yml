@@ -1,0 +1,9 @@
+---
+# Example interface configuration for this device
+interfaces:
+  - name: Loopback26
+    description: "Test Demo - Configured by Ansible"
+    enabled: true
+    mtu: 1500
+    ipv4_address: 192.0.2.34
+    ipv4_prefix_length: 32

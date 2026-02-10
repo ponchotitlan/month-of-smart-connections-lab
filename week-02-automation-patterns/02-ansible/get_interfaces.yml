@@ -1,0 +1,42 @@
+---
+###############################################################################
+# Playbook: Get Interfaces using gNMI and OpenConfig
+# 
+# This playbook retrieves interface information from network devices
+# using gNMI with OpenConfig models via pygnmi.
+###############################################################################
+
+- name: Retrieve Interface Information via gNMI
+  hosts: network_devices
+  gather_facts: false
+  connection: local
+  
+  tasks:
+    - name: Get all interfaces using OpenConfig
+      gnmi_get:
+        host: "{{ ansible_host }}"
+        port: "{{ ansible_port }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        path: "openconfig-interfaces:interfaces/interface"
+        insecure: true
+      register: interface_data
+      
+    - name: Display interface information
+      ansible.builtin.debug:
+        msg: "{{ interface_data.response }}"
+        verbosity: 1
+        
+    - name: Save interface data to file
+      ansible.builtin.copy:
+        content: "{{ interface_data.response | to_nice_json }}"
+        dest: "./output/{{ inventory_hostname }}_interfaces.json"
+      delegate_to: localhost
+      
+    - name: Display summary
+      ansible.builtin.debug:
+        msg: |
+          ================================================
+          Successfully retrieved interfaces from {{ inventory_hostname }}
+          Data saved to: ./output/{{ inventory_hostname }}_interfaces.json
+          ================================================

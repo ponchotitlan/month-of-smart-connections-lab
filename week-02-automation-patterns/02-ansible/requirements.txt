@@ -1,0 +1,4 @@
+ansible>=2.9
+pygnmi>=0.8.0
+grpcio>=1.46.0
+protobuf>=3.19.0

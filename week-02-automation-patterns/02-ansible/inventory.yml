@@ -1,0 +1,8 @@
+---
+all:
+  children:
+    network_devices:
+      hosts:
+        devnet-sandbox-router-1:
+          ansible_host: sandbox-iosxr-1.cisco.com
+          ansible_port: 57777

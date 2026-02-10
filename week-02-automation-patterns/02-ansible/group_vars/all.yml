@@ -1,0 +1,10 @@
+---
+# gNMI connection credentials
+ansible_user: alfsando
+ansible_password: DaZ2eBbl3lI2J-2_
+
+# # Python interpreter (use venv)
+# ansible_python_interpreter: /Users/alfsando/Documents/month-of-smart-connections-lab/.venv/bin/python
+
+# OpenConfig paths
+oc_interfaces_path: openconfig-interfaces:interfaces/interface
