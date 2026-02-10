@@ -19,7 +19,8 @@ on:
         type: string
 
 jobs:
-  ansible-automation:
+  setup:
+    name: Setup Environment
     runs-on: self-hosted
     
     steps:
@@ -34,9 +35,18 @@ jobs:
           source .venv/bin/activate
           pip install --upgrade pip
           pip install -r week-02-automation-patterns/02-ansible/requirements.txt
+
+  get_interfaces:
+    name: Get Network Interfaces
+    runs-on: self-hosted
+    needs: setup
+    if: ${{ github.event.inputs.action == 'get_interfaces' || github.event.inputs.action == 'both' }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       
-      - name: Run - Get Interfaces
-        if: ${{ github.event.inputs.action == 'get_interfaces' || github.event.inputs.action == 'both' }}
+      - name: Run Get Interfaces Playbook
         working-directory: week-02-automation-patterns/02-ansible
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'False'
@@ -48,8 +58,28 @@ jobs:
             ansible-playbook get_interfaces.yml
           fi
       
-      - name: Run - Configure Interfaces
-        if: ${{ github.event.inputs.action == 'configure_interfaces' || github.event.inputs.action == 'both' }}
+      - name: Upload Get Interfaces Output
+        uses: actions/upload-artifact@v4
+        with:
+          name: get-interfaces-output-${{ github.run_number }}
+          path: week-02-automation-patterns/02-ansible/output/
+          retention-days: 90
+
+  configure_interfaces:
+    name: Configure Network Interfaces
+    runs-on: self-hosted
+    needs: [setup, get_interfaces]
+    if: |
+      always() &&
+      needs.setup.result == 'success' &&
+      (needs.get_interfaces.result == 'success' || needs.get_interfaces.result == 'skipped') &&
+      (github.event.inputs.action == 'configure_interfaces' || github.event.inputs.action == 'both')
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Run Configure Interfaces Playbook
         working-directory: week-02-automation-patterns/02-ansible
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'False'
@@ -61,20 +91,28 @@ jobs:
             ansible-playbook configure_interfaces.yml
           fi
       
-      - name: Upload Ansible outputs
-        if: always()
+      - name: Upload Configure Interfaces Output
         uses: actions/upload-artifact@v4
         with:
-          name: ansible-outputs-${{ github.run_number }}
+          name: configure-interfaces-output-${{ github.run_number }}
           path: week-02-automation-patterns/02-ansible/output/
-          retention-days: 30
-      
-      - name: Upload Ansible logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: ansible-logs-${{ github.run_number }}
-          path: |
-            week-02-automation-patterns/02-ansible/*.log
-          retention-days: 7
-          if-no-files-found: ignore
+          retention-days: 90
+
+  summary:
+    name: Workflow Summary
+    runs-on: self-hosted
+    needs: [setup, get_interfaces, configure_interfaces]
+    if: always()
+    
+    steps:
+      - name: Generate Summary
+        run: |
+          echo "## Workflow Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Action**: ${{ github.event.inputs.action }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Target Host**: ${{ github.event.inputs.target_host || 'all' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Job Results" >> $GITHUB_STEP_SUMMARY
+          echo "- Setup: ${{ needs.setup.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Get Interfaces: ${{ needs.get_interfaces.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Configure Interfaces: ${{ needs.configure_interfaces.result }}" >> $GITHUB_STEP_SUMMARY
