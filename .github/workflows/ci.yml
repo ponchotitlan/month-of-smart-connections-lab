@@ -40,10 +40,7 @@ jobs:
     needs: setup
     if: ${{ github.event.inputs.action == 'get_interfaces' || github.event.inputs.action == 'both' }}
     
-    steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@v4
-      
+    steps:      
       - name: ▶️ Run Get Interfaces Playbook
         working-directory: week-02-automation-patterns/02-ansible
         env:
@@ -73,10 +70,7 @@ jobs:
       (needs.get_interfaces.result == 'success' || needs.get_interfaces.result == 'skipped') &&
       (github.event.inputs.action == 'configure_interfaces' || github.event.inputs.action == 'both')
     
-    steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@v4
-      
+    steps:      
       - name: ▶️ Run Configure Interfaces Playbook
         working-directory: week-02-automation-patterns/02-ansible
         env:
