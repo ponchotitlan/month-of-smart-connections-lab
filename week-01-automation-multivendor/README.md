@@ -371,6 +371,6 @@ If your lab uses different NED versions, you may need to adjust paths or payload
 
 ---
 
-**⬅️ Previous Week:** N/A (Week 1)  
-**➡️ Next Week:** [Week 2 - Service Orchestration]()  
+**⬅️ Previous Week:** [Week 1 - Loving All Vendors](../week-01-automation-multivendor/)
+**➡️ Next Week:** [Week 3 - Trust Issues]()  
 **📚 Main Repository:** [Month of Smart Connections Lab](https://github.com/ponchotitlan/month-of-smart-connections-lab)

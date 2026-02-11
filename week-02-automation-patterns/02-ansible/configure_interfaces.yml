@@ -66,37 +66,7 @@
         label: "{{ item.name }}"
       when: item.ipv4_address is defined
       register: config_result
-
-    - name: Configure interfaces without IP (basic config only)
-      gnmi_set:
-        host: "{{ ansible_host }}"
-        port: "{{ ansible_port }}"
-        username: "{{ ansible_user }}"
-        password: "{{ ansible_password }}"
-        insecure: true
-        update:
-          - path: "openconfig-interfaces:interfaces/interface"
-            value:
-              name: "{{ item.name }}"
-              config:
-                name: "{{ item.name }}"
-                type: >-
-                  {%- if 'loopback' in item.name | lower -%}iana-if-type:softwareLoopback
-                  {%- elif 'tunnel' in item.name | lower -%}iana-if-type:tunnel
-                  {%- elif 'vlan' in item.name | lower -%}iana-if-type:l3ipvlan
-                  {%- elif 'bundle' in item.name | lower or 'port-channel' in item.name | lower -%}iana-if-type:ieee8023adLag
-                  {%- elif item.name | lower | regex_search('gigabit|ethernet|eth|ge|te|fortygige|hundredgige') -%}iana-if-type:ethernetCsmacd
-                  {%- else -%}iana-if-type:other
-                  {%- endif -%}
-                description: "{{ item.description | default('Configured by Ansible') }}"
-                enabled: "{{ item.enabled | default(true) }}"
-                mtu: "{{ item.mtu | default(1500) }}"
-      loop: "{{ interfaces }}"
-      loop_control:
-        label: "{{ item.name }}"
-      when: item.ipv4_address is not defined
-      register: config_basic_result
-      
+ 
     - name: Display configuration summary
       ansible.builtin.debug:
         msg: |
