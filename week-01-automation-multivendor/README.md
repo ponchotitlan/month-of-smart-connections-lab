@@ -370,6 +370,6 @@ This project assumes the following NEDs are available in your environment:
 If your lab uses different NED versions, you may need to adjust paths or payloads.
 
 ---
-**⬅️ Previous Week:** N/A (Week 1)  
-**➡️ Next Week:** [Week 2 - Choose Your Love Language](../week-02-automation-patterns/)  
-**📚 Main Repository:** [Month of Smart Connections Lab](https://github.com/ponchotitlan/month-of-smart-connections-lab)
+**⬅️ Previous Week:** N/A (Week 1)</br>
+**➡️ Next Week:** [Week 2 - Choose Your Love Language](../week-02-automation-patterns/)</br>
+**📚 Main Repository:** [Month of Smart Connections Lab](https://github.com/ponchotitlan/month-of-smart-connections-lab)</br>
