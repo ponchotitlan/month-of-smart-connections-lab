@@ -514,6 +514,6 @@ After a successful run with the `get_interfaces` action, download the interface 
 | [🏗 Network CI/CD Best Practices](https://www.ciscolive.com/c/dam/r/ciscolive/emea/docs/2020/pdf/DEVNET-2594.pdf) | Cisco Live presentation on network CI/CD |
 
 ---
-**⬅️ Previous Week:** N/A (Week 1)  
-**➡️ Next Week:** [Week 2 - Choose Your Love Language](../week-02-automation-patterns/)  
+**⬅️ Previous Week:** [Week 1 - Loving All Vendors](../week-01-automation-multivendor/)
+**➡️ Next Week:** [Week 3 - Trust Issues]()  
 **📚 Main Repository:** [Month of Smart Connections Lab](https://github.com/ponchotitlan/month-of-smart-connections-lab)

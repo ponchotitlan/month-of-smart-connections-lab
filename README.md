@@ -24,18 +24,18 @@ Think of this as your **weekly dose of network love and friendship**, delivered 
 
 Each week of February, a new folder with working examples will be published:
 
-| Week | Release Date | Folder |
-|------|--------------|--------|
-| Week 1 | Thursday, Feb 5 | `week-01-automation-multivendor` 🔗 |
-| Week 2 | Thursday, Feb 12 | `week-02-automation-patterns` ⚙️ |
-| Week 3 | Thursday, Feb 19 | `week-03-automation-testing` ✅ |
-| Week 4 | Thursday, Feb 26 | `week-04-agentic-automation` 🤖 |
+| Week | Release Date | Folder | Episode in YouTube |
+|------|--------------|--------|-------------|
+| Week 1 | Thursday, Feb 5 | `week-01-automation-multivendor` 🔗 | [🎞️ Click to view!](https://www.youtube.com/watch?v=5OG3_zJ25KE) |
+| Week 2 | Thursday, Feb 12 | `week-02-automation-patterns` ⚙️ | [🎞️ Click to view!](https://www.youtube.com/watch?v=EqcBJdX24p8) |
+| Week 3 | Thursday, Feb 19 | `week-03-automation-testing` ✅ | `Not released yet!` |
+| Week 4 | Thursday, Feb 26 | `week-04-agentic-automation` 🤖 | `Not released yet!` |
 
 ---
 
 ## 📂 Code Samples Overview
 
-| Folder | Sample Name | Description |
+| Folder | Sample Name | Description | 
 |--------|------------|-------------|
 | [week-01-automation-multivendor](https://github.com/ponchotitlan/month-of-smart-connections-lab/tree/main/week-01-automation-multivendor/) 🔗 | **Loving All Vendors** | Push and pull interface configurations to/from multivendor networks using Cisco NSO. One RESTCONF API, zero vendor drama. 🔗🤝🤖 |
 | [`week-02-automation-patterns`](https://github.com/ponchotitlan/month-of-smart-connections-lab/tree/main/week-02-automation-patterns) ⚙️ | **Choose Your Love Language** | Demonstrate the same network task using Python, Ansible, and CI/CD pipelines. All vendors in - with OpenConfig and gNMI in all the tools. Pick your style! 🐍📦🔄 |
