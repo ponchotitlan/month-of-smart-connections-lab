@@ -29,8 +29,8 @@ jobs:
       
       - name: 🐍 Create Python virtual environment
         run: |
-          python3 -m venv .venv
-          source .venv/bin/activate
+          python3 -m venv week-02-automation-patterns/03-cicd/.venv
+          source week-02-automation-patterns/03-cicd/.venv/bin/activate
           pip install --upgrade pip
           pip install -r week-02-automation-patterns/02-ansible/requirements.txt
 
@@ -46,7 +46,7 @@ jobs:
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'False'
         run: |
-          source ../../.venv/bin/activate
+          source ../03-cicd/.venv/bin/activate
           if [ -n "${{ github.event.inputs.target_host }}" ]; then
             ansible-playbook get_interfaces.yml --limit "${{ github.event.inputs.target_host }}"
           else
@@ -76,19 +76,12 @@ jobs:
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'False'
         run: |
-          source ../../.venv/bin/activate
+          source ../03-cicd/.venv/bin/activate
           if [ -n "${{ github.event.inputs.target_host }}" ]; then
             ansible-playbook configure_interfaces.yml --limit "${{ github.event.inputs.target_host }}"
           else
             ansible-playbook configure_interfaces.yml
           fi
-      
-      - name: 📤 Upload Configure Interfaces Output
-        uses: actions/upload-artifact@v4
-        with:
-          name: configure-interfaces-output-${{ github.run_number }}
-          path: week-02-automation-patterns/02-ansible/output/
-          retention-days: 90
 
   summary:
     name: 📊 Workflow Summary
@@ -108,3 +101,19 @@ jobs:
           echo "- Setup: ${{ needs.setup.result }}" >> $GITHUB_STEP_SUMMARY
           echo "- Get Interfaces: ${{ needs.get_interfaces.result }}" >> $GITHUB_STEP_SUMMARY
           echo "- Configure Interfaces: ${{ needs.configure_interfaces.result }}" >> $GITHUB_STEP_SUMMARY
+
+  cleanup:
+    name: 🧹 Cleanup Environment
+    runs-on: self-hosted
+    needs: [setup, get_interfaces, configure_interfaces, summary]
+    if: always()
+    
+    steps:
+      - name: 🗑️ Remove virtual environment
+        run: |
+          if [ -d week-02-automation-patterns/03-cicd/.venv ]; then
+            rm -rf week-02-automation-patterns/03-cicd/.venv
+            echo "Virtual environment removed successfully"
+          else
+            echo "No virtual environment found to remove"
+          fi
