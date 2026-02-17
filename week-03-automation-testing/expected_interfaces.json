@@ -1,0 +1,46 @@
+{
+  "iosxr-alwayson": [
+    {
+      "name": "Loopback10",
+      "description": "BGP Router ID",
+      "admin_status": "UP",
+      "oper_status": "UP"
+    },
+    {
+      "name": "Loopback11",
+      "description": "OSPF Router ID",
+      "admin_status": "UP",
+      "oper_status": "UP"
+    },
+    {
+      "name": "Loopback12",
+      "description": "MPLS LDP Router ID",
+      "admin_status": "UP",
+      "oper_status": "UP"
+    },
+    {
+      "name": "Loopback13",
+      "description": "Management Interface",
+      "admin_status": "UP",
+      "oper_status": "UP"
+    },
+    {
+      "name": "Loopback14",
+      "description": "VPN Service Endpoint",
+      "admin_status": "UP",
+      "oper_status": "UP"
+    },
+    {
+      "name": "Loopback15",
+      "description": "Monitoring and Telemetry",
+      "admin_status": "UP",
+      "oper_status": "UP"
+    },
+    {
+      "name": "Loopback20",
+      "description": "SR-TE Controller Endpoint",
+      "admin_status": "UP",
+      "oper_status": "UP"
+    }
+  ]
+}
