@@ -4,7 +4,6 @@ Provides keywords for connecting to network devices and retrieving interface inf
 """
 
 import json
-import yaml
 from pygnmi.client import gNMIclient
 from robot.api import logger
 
@@ -15,69 +14,7 @@ class GnmiLibrary:
     ROBOT_LIBRARY_SCOPE = 'SUITE'
     
     def __init__(self):
-        self.devices_config = {}
         self.devices = {}
-    
-    def load_devices(self, devices_file):
-        """
-        Load device configurations from YAML file
-        
-        Args:
-            devices_file: Path to devices.yaml file
-        """
-        logger.info(f"Loading devices from {devices_file}")
-        with open(devices_file, 'r') as f:
-            self.devices_config = yaml.safe_load(f)
-        
-        device_count = len(self.devices_config.get('devices', {}))
-        logger.info(f"Devices loaded successfully: {device_count} devices")
-        return True
-    
-    def get_all_device_names(self):
-        """
-        Get list of all device names from loaded configuration
-        
-        Returns:
-            List of device names
-        """
-        if not self.devices_config:
-            raise Exception("Devices not loaded. Call 'Load Devices' first.")
-        
-        device_names = list(self.devices_config.get('devices', {}).keys())
-        logger.info(f"Device names: {device_names}")
-        return device_names
-    
-    def connect_to_device(self, device_name):
-        """
-        Connect to a network device using gNMI
-        
-        Args:
-            device_name: Name of the device in configuration
-        """
-        if not self.devices_config:
-            raise Exception("Devices not loaded. Call 'Load Devices' first.")
-        
-        devices = self.devices_config.get('devices', {})
-        if device_name not in devices:
-            raise Exception(f"Device {device_name} not found in configuration")
-        
-        device_cfg = devices[device_name]
-        logger.info(f"Connecting to device: {device_name}")
-        
-        try:
-            connection = gNMIclient(
-                target=(device_cfg['host'], device_cfg['port']),
-                username=device_cfg['username'],
-                password=device_cfg['password'],
-                insecure=device_cfg.get('insecure', True),
-                skip_verify=device_cfg.get('skip_verify', True)
-            )
-            connection.connect()
-            self.devices[device_name] = connection
-            logger.info(f"Successfully connected to {device_name}")
-            return True
-        except Exception as e:
-            raise Exception(f"Failed to connect to {device_name}: {str(e)}")
     
     def connect_to_device_inline(self, device_name, host, port, username, password, insecure=True):
         """
@@ -110,40 +47,6 @@ class GnmiLibrary:
             return True
         except Exception as e:
             raise Exception(f"Failed to connect to {device_name}: {str(e)}")
-    
-    def get_config_via_gnmi(self, device_name, path):
-        """
-        Retrieve configuration from device using gNMI with custom path
-        
-        Args:
-            device_name: Name of the device
-            path: gNMI path to query (e.g., '/interfaces' or '/network-instances')
-            
-        Returns:
-            JSON string with configuration
-        """
-        if device_name not in self.devices:
-            raise Exception(f"Device {device_name} not connected. Call 'Connect To Device' first.")
-        
-        connection = self.devices[device_name]
-        logger.info(f"Retrieving config from {device_name} at path: {path}")
-        
-        try:
-            response = connection.get(path=[path], encoding='json_ietf')
-            
-            # Parse response
-            config_data = {}
-            if response and 'notification' in response:
-                for notification in response['notification']:
-                    if 'update' in notification:
-                        for update in notification['update']:
-                            if 'val' in update:
-                                config_data = update['val']
-            
-            logger.info(f"Retrieved config from {device_name}: {json.dumps(config_data, indent=2)}")
-            return json.dumps(config_data)
-        except Exception as e:
-            raise Exception(f"Failed to get config from {device_name} at {path}: {str(e)}")
     
     def get_interfaces_via_gnmi(self, device_name):
         """
