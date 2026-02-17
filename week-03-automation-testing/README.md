@@ -139,4 +139,5 @@ Open `report.html` in a browser to view detailed results, including which interf
 
 ---
 **⬅️ Previous Week:** [Week 2 - Choose Your Love Language](../week-02-automation-patterns/)</br>
+**➡️ Next Week:** [Week 4 - Intentions Matter]()</br>
 **📚 Main Repository:** [Month of Smart Connections Lab](https://github.com/ponchotitlan/month-of-smart-connections-lab)

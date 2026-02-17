@@ -515,5 +515,5 @@ After a successful run with the `get_interfaces` action, download the interface 
 
 ---
 **⬅️ Previous Week:** [Week 1 - Loving All Vendors](../week-01-automation-multivendor/)</br>
-**➡️ Next Week:** [Week 3 - Trust Issues]()</br>
+**➡️ Next Week:** [Week 3 - Trust Issues](../week-03-automation-testing/)</br>
 **📚 Main Repository:** [Month of Smart Connections Lab](https://github.com/ponchotitlan/month-of-smart-connections-lab)

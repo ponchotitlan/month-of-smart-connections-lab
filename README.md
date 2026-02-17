@@ -37,9 +37,9 @@ Each week of February, a new folder with working examples will be published:
 
 | Folder | Sample Name | Description | 
 |--------|------------|-------------|
-| [week-01-automation-multivendor](https://github.com/ponchotitlan/month-of-smart-connections-lab/tree/main/week-01-automation-multivendor/) 🔗 | **Loving All Vendors** | Push and pull interface configurations to/from multivendor networks using Cisco NSO. One RESTCONF API, zero vendor drama. 🔗🤝🤖 |
-| [`week-02-automation-patterns`](https://github.com/ponchotitlan/month-of-smart-connections-lab/tree/main/week-02-automation-patterns) ⚙️ | **Choose Your Love Language** | Demonstrate the same network task using Python, Ansible, and CI/CD pipelines. All vendors in - with OpenConfig and gNMI in all the tools. Pick your style! 🐍📦🔄 |
-| `week-03-automation-testing` ✅ | **Trust Issues** | Validate your network automation with pyATS tests & pre/post checks. Safety first! ✅🛡️ |
+| [week-01-automation-multivendor](/week-01-automation-multivendor/) 🔗 | **Loving All Vendors** | Push and pull interface configurations to/from multivendor networks using Cisco NSO. One RESTCONF API, zero vendor drama. 🔗🤝🤖 |
+| [`week-02-automation-patterns`](/week-02-automation-patterns/) ⚙️ | **Choose Your Love Language** | Demonstrate the same multivendor network task using Python, Ansible, and CI/CD pipelines. All vendors in - with OpenConfig and gNMI in all the tools. Pick your style! 🐍📦🔄 |
+| [`week-03-automation-testing`](/week-03-automation-testing/) ✅ | **Trust Issues** | Run audits in your multivendor network with Robot Framework. Safety first! ✅🛡️ |
 | `week-04-agentic-automation` 🤖 | **Intentions Matter** | Prototype agentic automation with AI/intent-driven workflows for network tasks. 💡🤖⚡ |
 
 ---
