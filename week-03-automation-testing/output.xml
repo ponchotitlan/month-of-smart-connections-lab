@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.4.1 (Python 3.11.6 on darwin)" generated="2026-02-17T20:06:43.550406" rpa="false" schemaversion="5">
+<robot generator="Robot 7.4.1 (Python 3.11.6 on darwin)" generated="2026-02-17T20:38:05.437623" rpa="false" schemaversion="5">
 <suite id="s1" name="Interface Audit" source="/Users/alfsando/Documents/month-of-smart-connections-lab/week-03-automation-testing/interface_audit.robot">
 <kw name="Setup Test Environment" type="SETUP">
 <kw name="Connect To Device Inline" owner="GnmiLibrary">
-<msg time="2026-02-17T20:06:43.666548" level="INFO">Connecting to device: iosxr-alwayson at sandbox-iosxr-1.cisco.com:57777</msg>
-<msg time="2026-02-17T20:06:44.054750" level="INFO">Collecting Capabilities...</msg>
-<msg time="2026-02-17T20:06:44.989820" level="INFO">Collection of Capabilities is successfull</msg>
-<msg time="2026-02-17T20:06:44.990015" level="INFO">Selected encoding 'json_ietf' based on capabilities</msg>
-<msg time="2026-02-17T20:06:44.990163" level="INFO">Successfully connected to iosxr-alwayson</msg>
+<msg time="2026-02-17T20:38:05.543008" level="INFO">Connecting to device: iosxr-alwayson at sandbox-iosxr-1.cisco.com:57777</msg>
+<msg time="2026-02-17T20:38:06.004953" level="INFO">Collecting Capabilities...</msg>
+<msg time="2026-02-17T20:38:07.031783" level="INFO">Collection of Capabilities is successfull</msg>
+<msg time="2026-02-17T20:38:07.031853" level="INFO">Selected encoding 'json_ietf' based on capabilities</msg>
+<msg time="2026-02-17T20:38:07.031905" level="INFO">Successfully connected to iosxr-alwayson</msg>
 <arg>${DEVICE_NAME}</arg>
 <arg>${DEVICE_HOST}</arg>
 <arg>${DEVICE_PORT}</arg>
@@ -15,23 +15,23 @@
 <arg>${DEVICE_PASSWORD}</arg>
 <arg>${DEVICE_INSECURE}</arg>
 <doc>Connect to a network device using gNMI with inline parameters</doc>
-<status status="PASS" start="2026-02-17T20:06:43.666413" elapsed="1.323857"/>
+<status status="PASS" start="2026-02-17T20:38:05.542868" elapsed="1.489076"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:44.991310" level="INFO">🔗 Device iosxr-alwayson successfully connected via gNMI to port 57777</msg>
+<msg time="2026-02-17T20:38:07.032311" level="INFO">🔗 Device iosxr-alwayson successfully connected via gNMI to port 57777</msg>
 <arg>🔗 Device ${DEVICE_NAME} successfully connected via gNMI to port ${DEVICE_PORT}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:44.990693" elapsed="0.000671"/>
+<status status="PASS" start="2026-02-17T20:38:07.032069" elapsed="0.000267"/>
 </kw>
 <doc>Initialize connection parameters and prepare for testing</doc>
-<status status="PASS" start="2026-02-17T20:06:43.666177" elapsed="1.325252"/>
+<status status="PASS" start="2026-02-17T20:38:05.542621" elapsed="1.489753"/>
 </kw>
-<test id="s1-t1" name="Explore Interfaces" line="26">
+<test id="s1-t1" name="Explore Interfaces" line="27">
 <kw name="Get Interfaces Via Gnmi" owner="GnmiLibrary">
-<msg time="2026-02-17T20:06:44.991955" level="INFO">Retrieving interface configuration from iosxr-alwayson</msg>
-<msg time="2026-02-17T20:06:44.992022" level="INFO">Collecting info from requested paths (Get operation)...</msg>
-<msg time="2026-02-17T20:06:45.826535" level="INFO">✓ Successfully retrieved interfaces from iosxr-alwayson</msg>
-<msg time="2026-02-17T20:06:45.828638" level="INFO">Response data: {
+<msg time="2026-02-17T20:38:07.032726" level="INFO">Retrieving interface configuration from iosxr-alwayson</msg>
+<msg time="2026-02-17T20:38:07.032765" level="INFO">Collecting info from requested paths (Get operation)...</msg>
+<msg time="2026-02-17T20:38:07.746390" level="INFO">✓ Successfully retrieved interfaces from iosxr-alwayson</msg>
+<msg time="2026-02-17T20:38:07.747402" level="INFO">Response data: {
   "interface": [
     {
       "name": "Loopback10",
@@ -53,175 +53,175 @@
           }
         }
   ...</msg>
-<msg time="2026-02-17T20:06:45.829136" level="INFO">${interfaces_json} = {"interface": [{"name": "Loopback10", "openconfig-if-tunnel:tunnel": {"ipv6": {"router-advertisement": {"state": {"other-config": false, "managed": false, "mode": "ALL", "enable": true}, "config": {"o...</msg>
+<msg time="2026-02-17T20:38:07.747738" level="INFO">${interfaces_json} = {"interface": [{"name": "Loopback10", "openconfig-if-tunnel:tunnel": {"ipv6": {"router-advertisement": {"state": {"other-config": false, "managed": false, "mode": "ALL", "enable": true}, "config": {"o...</msg>
 <var>${interfaces_json}</var>
 <arg>${DEVICE_NAME}</arg>
 <doc>Retrieve interface configuration from device using gNMI and OpenConfig</doc>
-<status status="PASS" start="2026-02-17T20:06:44.991851" elapsed="0.837313"/>
+<status status="PASS" start="2026-02-17T20:38:07.032660" elapsed="0.715099"/>
 </kw>
 <kw name="Parse Interfaces From Json" owner="GnmiLibrary">
-<msg time="2026-02-17T20:06:45.829528" level="INFO">Parsed interface: Loopback10 - BGP Router ID - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:45.829544" level="INFO">Parsed interface: Loopback11 - OSPF Router ID - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:45.829554" level="INFO">Parsed interface: Loopback12 - MPLS LDP Router ID - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:45.829563" level="INFO">Parsed interface: Loopback13 - Management Interface - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:45.829572" level="INFO">Parsed interface: Loopback14 - VPN Service Endpoint - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:45.829581" level="INFO">Parsed interface: Loopback15 - Monitoring and Telemetry - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:45.829589" level="INFO">Parsed interface: GigabitEthernet0/0/0/0 - to xrd-2 Gi0/0/0/0 - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:45.829601" level="INFO">Parsed interface: Null0 -  - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:45.829610" level="INFO">Parsed interface: GigabitEthernet0/0/0/1 - to xrd-3 Gi0/0/0/1 - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:45.829618" level="INFO">Parsed interface: Loopback73 - hola - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:45.829627" level="INFO">Parsed interface: Loopback0 -  - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:45.829635" level="INFO">Parsed interface: MgmtEth0/RP0/CPU0/0 -  - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:45.829643" level="INFO">Total interfaces parsed: 12</msg>
-<msg time="2026-02-17T20:06:45.829708" level="INFO">@{interfaces} = [ {'name': 'Loopback10', 'description': 'BGP Router ID', 'admin_status': 'UP', 'oper_status': 'UP'} | {'name': 'Loopback11', 'description': 'OSPF Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}...</msg>
+<msg time="2026-02-17T20:38:07.748237" level="INFO">Parsed interface: Loopback10 - BGP Router ID - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.748258" level="INFO">Parsed interface: Loopback11 - OSPF Router ID - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.748270" level="INFO">Parsed interface: Loopback12 - MPLS LDP Router ID - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.748280" level="INFO">Parsed interface: Loopback13 - Management Interface - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.748291" level="INFO">Parsed interface: Loopback14 - VPN Service Endpoint - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.748301" level="INFO">Parsed interface: Loopback15 - Monitoring and Telemetry - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.748312" level="INFO">Parsed interface: GigabitEthernet0/0/0/0 - to xrd-2 Gi0/0/0/0 - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.748326" level="INFO">Parsed interface: Null0 -  - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.748336" level="INFO">Parsed interface: GigabitEthernet0/0/0/1 - to xrd-3 Gi0/0/0/1 - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.748346" level="INFO">Parsed interface: Loopback73 - hola - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.748356" level="INFO">Parsed interface: Loopback0 -  - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.748366" level="INFO">Parsed interface: MgmtEth0/RP0/CPU0/0 -  - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.748377" level="INFO">Total interfaces parsed: 12</msg>
+<msg time="2026-02-17T20:38:07.748456" level="INFO">@{interfaces} = [ {'name': 'Loopback10', 'description': 'BGP Router ID', 'admin_status': 'UP', 'oper_status': 'UP'} | {'name': 'Loopback11', 'description': 'OSPF Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}...</msg>
 <var>@{interfaces}</var>
 <arg>${interfaces_json}</arg>
 <doc>Extract interface details from JSON response</doc>
-<status status="PASS" start="2026-02-17T20:06:45.829333" elapsed="0.000387"/>
+<status status="PASS" start="2026-02-17T20:38:07.747991" elapsed="0.000481"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:45.830213" level="INFO">Found  12 interfaces</msg>
+<msg time="2026-02-17T20:38:07.749071" level="INFO">Found  12 interfaces</msg>
 <arg>Found ${SPACE}${interfaces.__len__()}${SPACE}interfaces</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:45.829805" elapsed="0.000431"/>
+<status status="PASS" start="2026-02-17T20:38:07.748572" elapsed="0.000527"/>
 </kw>
 <for flavor="IN">
 <iter>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:45.830599" level="INFO">🔌 Interface: Loopback10 - BGP Router ID - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.749539" level="INFO">🔌 Interface: Loopback10 - BGP Router ID - Admin: UP, Oper: UP</msg>
 <arg>🔌 Interface: ${interface}[name] - ${interface}[description] - Admin: ${interface}[admin_status], Oper: ${interface}[oper_status]</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:45.830432" elapsed="0.000189"/>
+<status status="PASS" start="2026-02-17T20:38:07.749343" elapsed="0.000222"/>
 </kw>
 <var name="${interface}">{'name': 'Loopback10', 'description': 'BGP Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:45.830383" elapsed="0.000259"/>
+<status status="PASS" start="2026-02-17T20:38:07.749282" elapsed="0.000307"/>
 </iter>
 <iter>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:45.830881" level="INFO">🔌 Interface: Loopback11 - OSPF Router ID - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.749869" level="INFO">🔌 Interface: Loopback11 - OSPF Router ID - Admin: UP, Oper: UP</msg>
 <arg>🔌 Interface: ${interface}[name] - ${interface}[description] - Admin: ${interface}[admin_status], Oper: ${interface}[oper_status]</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:45.830735" elapsed="0.000167"/>
+<status status="PASS" start="2026-02-17T20:38:07.749696" elapsed="0.000198"/>
 </kw>
 <var name="${interface}">{'name': 'Loopback11', 'description': 'OSPF Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:45.830689" elapsed="0.000231"/>
+<status status="PASS" start="2026-02-17T20:38:07.749644" elapsed="0.000271"/>
 </iter>
 <iter>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:45.831139" level="INFO">🔌 Interface: Loopback12 - MPLS LDP Router ID - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.750173" level="INFO">🔌 Interface: Loopback12 - MPLS LDP Router ID - Admin: UP, Oper: UP</msg>
 <arg>🔌 Interface: ${interface}[name] - ${interface}[description] - Admin: ${interface}[admin_status], Oper: ${interface}[oper_status]</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:45.831001" elapsed="0.000159"/>
+<status status="PASS" start="2026-02-17T20:38:07.750007" elapsed="0.000191"/>
 </kw>
 <var name="${interface}">{'name': 'Loopback12', 'description': 'MPLS LDP Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:45.830959" elapsed="0.000217"/>
+<status status="PASS" start="2026-02-17T20:38:07.749958" elapsed="0.000259"/>
 </iter>
 <iter>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:45.831381" level="INFO">🔌 Interface: Loopback13 - Management Interface - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.750466" level="INFO">🔌 Interface: Loopback13 - Management Interface - Admin: UP, Oper: UP</msg>
 <arg>🔌 Interface: ${interface}[name] - ${interface}[description] - Admin: ${interface}[admin_status], Oper: ${interface}[oper_status]</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:45.831250" elapsed="0.000150"/>
+<status status="PASS" start="2026-02-17T20:38:07.750306" elapsed="0.000183"/>
 </kw>
 <var name="${interface}">{'name': 'Loopback13', 'description': 'Management Interface', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:45.831215" elapsed="0.000246"/>
+<status status="PASS" start="2026-02-17T20:38:07.750263" elapsed="0.000327"/>
 </iter>
 <iter>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:45.831676" level="INFO">🔌 Interface: Loopback14 - VPN Service Endpoint - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.750851" level="INFO">🔌 Interface: Loopback14 - VPN Service Endpoint - Admin: UP, Oper: UP</msg>
 <arg>🔌 Interface: ${interface}[name] - ${interface}[description] - Admin: ${interface}[admin_status], Oper: ${interface}[oper_status]</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:45.831538" elapsed="0.000157"/>
+<status status="PASS" start="2026-02-17T20:38:07.750683" elapsed="0.000192"/>
 </kw>
 <var name="${interface}">{'name': 'Loopback14', 'description': 'VPN Service Endpoint', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:45.831503" elapsed="0.000207"/>
+<status status="PASS" start="2026-02-17T20:38:07.750641" elapsed="0.000252"/>
 </iter>
 <iter>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:45.831914" level="INFO">🔌 Interface: Loopback15 - Monitoring and Telemetry - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.751140" level="INFO">🔌 Interface: Loopback15 - Monitoring and Telemetry - Admin: UP, Oper: UP</msg>
 <arg>🔌 Interface: ${interface}[name] - ${interface}[description] - Admin: ${interface}[admin_status], Oper: ${interface}[oper_status]</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:45.831780" elapsed="0.000153"/>
+<status status="PASS" start="2026-02-17T20:38:07.750979" elapsed="0.000184"/>
 </kw>
 <var name="${interface}">{'name': 'Loopback15', 'description': 'Monitoring and Telemetry', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:45.831748" elapsed="0.000199"/>
+<status status="PASS" start="2026-02-17T20:38:07.750939" elapsed="0.000242"/>
 </iter>
 <iter>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:45.832139" level="INFO">🔌 Interface: GigabitEthernet0/0/0/0 - to xrd-2 Gi0/0/0/0 - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.751416" level="INFO">🔌 Interface: GigabitEthernet0/0/0/0 - to xrd-2 Gi0/0/0/0 - Admin: UP, Oper: UP</msg>
 <arg>🔌 Interface: ${interface}[name] - ${interface}[description] - Admin: ${interface}[admin_status], Oper: ${interface}[oper_status]</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:45.832013" elapsed="0.000144"/>
+<status status="PASS" start="2026-02-17T20:38:07.751261" elapsed="0.000177"/>
 </kw>
 <var name="${interface}">{'name': 'GigabitEthernet0/0/0/0', 'description': 'to xrd-2 Gi0/0/0/0', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:45.831981" elapsed="0.000191"/>
+<status status="PASS" start="2026-02-17T20:38:07.751222" elapsed="0.000235"/>
 </iter>
 <iter>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:45.832364" level="INFO">🔌 Interface: Null0 -  - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.751694" level="INFO">🔌 Interface: Null0 -  - Admin: UP, Oper: UP</msg>
 <arg>🔌 Interface: ${interface}[name] - ${interface}[description] - Admin: ${interface}[admin_status], Oper: ${interface}[oper_status]</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:45.832239" elapsed="0.000143"/>
+<status status="PASS" start="2026-02-17T20:38:07.751540" elapsed="0.000176"/>
 </kw>
 <var name="${interface}">{'name': 'Null0', 'description': '', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:45.832207" elapsed="0.000189"/>
+<status status="PASS" start="2026-02-17T20:38:07.751500" elapsed="0.000234"/>
 </iter>
 <iter>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:45.832584" level="INFO">🔌 Interface: GigabitEthernet0/0/0/1 - to xrd-3 Gi0/0/0/1 - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.751967" level="INFO">🔌 Interface: GigabitEthernet0/0/0/1 - to xrd-3 Gi0/0/0/1 - Admin: UP, Oper: UP</msg>
 <arg>🔌 Interface: ${interface}[name] - ${interface}[description] - Admin: ${interface}[admin_status], Oper: ${interface}[oper_status]</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:45.832459" elapsed="0.000143"/>
+<status status="PASS" start="2026-02-17T20:38:07.751813" elapsed="0.000177"/>
 </kw>
 <var name="${interface}">{'name': 'GigabitEthernet0/0/0/1', 'description': 'to xrd-3 Gi0/0/0/1', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:45.832428" elapsed="0.000188"/>
+<status status="PASS" start="2026-02-17T20:38:07.751775" elapsed="0.000232"/>
 </iter>
 <iter>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:45.832800" level="INFO">🔌 Interface: Loopback73 - hola - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.752234" level="INFO">🔌 Interface: Loopback73 - hola - Admin: UP, Oper: UP</msg>
 <arg>🔌 Interface: ${interface}[name] - ${interface}[description] - Admin: ${interface}[admin_status], Oper: ${interface}[oper_status]</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:45.832677" elapsed="0.000141"/>
+<status status="PASS" start="2026-02-17T20:38:07.752083" elapsed="0.000173"/>
 </kw>
 <var name="${interface}">{'name': 'Loopback73', 'description': 'hola', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:45.832647" elapsed="0.000185"/>
+<status status="PASS" start="2026-02-17T20:38:07.752046" elapsed="0.000227"/>
 </iter>
 <iter>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:45.833017" level="INFO">🔌 Interface: Loopback0 -  - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.752500" level="INFO">🔌 Interface: Loopback0 -  - Admin: UP, Oper: UP</msg>
 <arg>🔌 Interface: ${interface}[name] - ${interface}[description] - Admin: ${interface}[admin_status], Oper: ${interface}[oper_status]</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:45.832893" elapsed="0.000142"/>
+<status status="PASS" start="2026-02-17T20:38:07.752347" elapsed="0.000175"/>
 </kw>
 <var name="${interface}">{'name': 'Loopback0', 'description': '', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:45.832863" elapsed="0.000186"/>
+<status status="PASS" start="2026-02-17T20:38:07.752310" elapsed="0.000229"/>
 </iter>
 <iter>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:45.833232" level="INFO">🔌 Interface: MgmtEth0/RP0/CPU0/0 -  - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:07.752764" level="INFO">🔌 Interface: MgmtEth0/RP0/CPU0/0 -  - Admin: UP, Oper: UP</msg>
 <arg>🔌 Interface: ${interface}[name] - ${interface}[description] - Admin: ${interface}[admin_status], Oper: ${interface}[oper_status]</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:45.833109" elapsed="0.000141"/>
+<status status="PASS" start="2026-02-17T20:38:07.752613" elapsed="0.000172"/>
 </kw>
 <var name="${interface}">{'name': 'MgmtEth0/RP0/CPU0/0', 'description': '', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:45.833079" elapsed="0.000185"/>
+<status status="PASS" start="2026-02-17T20:38:07.752576" elapsed="0.000226"/>
 </iter>
 <var>${interface}</var>
 <value>@{interfaces}</value>
-<status status="PASS" start="2026-02-17T20:06:45.830301" elapsed="0.002975"/>
+<status status="PASS" start="2026-02-17T20:38:07.749177" elapsed="0.003640"/>
 </for>
 <doc>Retrieve and display all interface configurations</doc>
 <tag>explore</tag>
 <tag>troubleshoot</tag>
-<status status="PASS" start="2026-02-17T20:06:44.991488" elapsed="0.841875"/>
+<status status="PASS" start="2026-02-17T20:38:07.032416" elapsed="0.720501"/>
 </test>
-<test id="s1-t2" name="Audit Interface Configuration On Device" line="38">
+<test id="s1-t2" name="Audit Interface Configuration On Device" line="39">
 <kw name="Audit Device Interfaces">
 <kw name="Get Interfaces Via Gnmi" owner="GnmiLibrary">
-<msg time="2026-02-17T20:06:45.833917" level="INFO">Retrieving interface configuration from iosxr-alwayson</msg>
-<msg time="2026-02-17T20:06:45.833969" level="INFO">Collecting info from requested paths (Get operation)...</msg>
-<msg time="2026-02-17T20:06:46.497685" level="INFO">✓ Successfully retrieved interfaces from iosxr-alwayson</msg>
-<msg time="2026-02-17T20:06:46.498767" level="INFO">Response data: {
+<msg time="2026-02-17T20:38:07.753721" level="INFO">Retrieving interface configuration from iosxr-alwayson</msg>
+<msg time="2026-02-17T20:38:07.753788" level="INFO">Collecting info from requested paths (Get operation)...</msg>
+<msg time="2026-02-17T20:38:08.433183" level="INFO">✓ Successfully retrieved interfaces from iosxr-alwayson</msg>
+<msg time="2026-02-17T20:38:08.434062" level="INFO">Response data: {
   "interface": [
     {
       "name": "Loopback10",
@@ -243,60 +243,60 @@
           }
         }
   ...</msg>
-<msg time="2026-02-17T20:06:46.499112" level="INFO">${actual_interfaces_json} = {"interface": [{"name": "Loopback10", "openconfig-if-tunnel:tunnel": {"ipv6": {"router-advertisement": {"state": {"other-config": false, "managed": false, "mode": "ALL", "enable": true}, "config": {"o...</msg>
+<msg time="2026-02-17T20:38:08.434347" level="INFO">${actual_interfaces_json} = {"interface": [{"name": "Loopback10", "openconfig-if-tunnel:tunnel": {"ipv6": {"router-advertisement": {"state": {"other-config": false, "managed": false, "mode": "ALL", "enable": true}, "config": {"o...</msg>
 <var>${actual_interfaces_json}</var>
 <arg>${DEVICE_NAME}</arg>
 <doc>Retrieve interface configuration from device using gNMI and OpenConfig</doc>
-<status status="PASS" start="2026-02-17T20:06:45.833870" elapsed="0.665265"/>
+<status status="PASS" start="2026-02-17T20:38:07.753652" elapsed="0.680712"/>
 </kw>
 <kw name="Parse Interfaces From Json" owner="GnmiLibrary">
-<msg time="2026-02-17T20:06:46.499502" level="INFO">Parsed interface: Loopback10 - BGP Router ID - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:46.499520" level="INFO">Parsed interface: Loopback11 - OSPF Router ID - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:46.499533" level="INFO">Parsed interface: Loopback12 - MPLS LDP Router ID - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:46.499544" level="INFO">Parsed interface: Loopback13 - Management Interface - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:46.499554" level="INFO">Parsed interface: Loopback14 - VPN Service Endpoint - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:46.499647" level="INFO">Parsed interface: Loopback15 - Monitoring and Telemetry - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:46.499662" level="INFO">Parsed interface: GigabitEthernet0/0/0/0 - to xrd-2 Gi0/0/0/0 - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:46.499674" level="INFO">Parsed interface: Null0 -  - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:46.499685" level="INFO">Parsed interface: GigabitEthernet0/0/0/1 - to xrd-3 Gi0/0/0/1 - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:46.499697" level="INFO">Parsed interface: Loopback73 - hola - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:46.499708" level="INFO">Parsed interface: Loopback0 -  - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:46.499718" level="INFO">Parsed interface: MgmtEth0/RP0/CPU0/0 -  - Admin: UP, Oper: UP</msg>
-<msg time="2026-02-17T20:06:46.499729" level="INFO">Total interfaces parsed: 12</msg>
-<msg time="2026-02-17T20:06:46.499819" level="INFO">@{actual_interfaces} = [ {'name': 'Loopback10', 'description': 'BGP Router ID', 'admin_status': 'UP', 'oper_status': 'UP'} | {'name': 'Loopback11', 'description': 'OSPF Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}...</msg>
+<msg time="2026-02-17T20:38:08.434683" level="INFO">Parsed interface: Loopback10 - BGP Router ID - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:08.434699" level="INFO">Parsed interface: Loopback11 - OSPF Router ID - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:08.434711" level="INFO">Parsed interface: Loopback12 - MPLS LDP Router ID - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:08.434721" level="INFO">Parsed interface: Loopback13 - Management Interface - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:08.434731" level="INFO">Parsed interface: Loopback14 - VPN Service Endpoint - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:08.434834" level="INFO">Parsed interface: Loopback15 - Monitoring and Telemetry - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:08.434848" level="INFO">Parsed interface: GigabitEthernet0/0/0/0 - to xrd-2 Gi0/0/0/0 - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:08.434858" level="INFO">Parsed interface: Null0 -  - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:08.434869" level="INFO">Parsed interface: GigabitEthernet0/0/0/1 - to xrd-3 Gi0/0/0/1 - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:08.434879" level="INFO">Parsed interface: Loopback73 - hola - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:08.434889" level="INFO">Parsed interface: Loopback0 -  - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:08.434899" level="INFO">Parsed interface: MgmtEth0/RP0/CPU0/0 -  - Admin: UP, Oper: UP</msg>
+<msg time="2026-02-17T20:38:08.434909" level="INFO">Total interfaces parsed: 12</msg>
+<msg time="2026-02-17T20:38:08.434990" level="INFO">@{actual_interfaces} = [ {'name': 'Loopback10', 'description': 'BGP Router ID', 'admin_status': 'UP', 'oper_status': 'UP'} | {'name': 'Loopback11', 'description': 'OSPF Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}...</msg>
 <var>@{actual_interfaces}</var>
 <arg>${actual_interfaces_json}</arg>
 <doc>Extract interface details from JSON response</doc>
-<status status="PASS" start="2026-02-17T20:06:46.499255" elapsed="0.000579"/>
+<status status="PASS" start="2026-02-17T20:38:08.434467" elapsed="0.000537"/>
 </kw>
 <kw name="Load Expected Interfaces" owner="GnmiLibrary">
-<msg time="2026-02-17T20:06:46.500349" level="INFO">Expected interfaces for iosxr-alwayson: 7 interfaces</msg>
-<msg time="2026-02-17T20:06:46.500424" level="INFO">@{expected_interfaces} = [ {'name': 'Loopback10', 'description': 'BGP Router ID', 'admin_status': 'UP', 'oper_status': 'UP'} | {'name': 'Loopback11', 'description': 'OSPF Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}...</msg>
+<msg time="2026-02-17T20:38:08.435284" level="INFO">Expected interfaces for iosxr-alwayson: 7 interfaces</msg>
+<msg time="2026-02-17T20:38:08.435348" level="INFO">@{expected_interfaces} = [ {'name': 'Loopback10', 'description': 'BGP Router ID', 'admin_status': 'UP', 'oper_status': 'UP'} | {'name': 'Loopback11', 'description': 'OSPF Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}...</msg>
 <var>@{expected_interfaces}</var>
 <arg>${EXPECTED_FILE}</arg>
 <arg>${DEVICE_NAME}</arg>
 <doc>Load expected interfaces for a device from JSON file</doc>
-<status status="PASS" start="2026-02-17T20:06:46.499899" elapsed="0.000540"/>
+<status status="PASS" start="2026-02-17T20:38:08.435064" elapsed="0.000297"/>
 </kw>
 <for flavor="IN">
 <iter>
 <kw name="Verify Interface Exists" owner="GnmiLibrary">
-<msg time="2026-02-17T20:06:46.500752" level="INFO">${actual} = {'name': 'Loopback10', 'description': 'BGP Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}</msg>
+<msg time="2026-02-17T20:38:08.435643" level="INFO">${actual} = {'name': 'Loopback10', 'description': 'BGP Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}</msg>
 <var>${actual}</var>
 <arg>${expected}[name]</arg>
 <arg>${actual_interfaces}</arg>
 <doc>Verify if an interface exists in the actual interfaces list</doc>
-<status status="PASS" start="2026-02-17T20:06:46.500646" elapsed="0.000122"/>
+<status status="PASS" start="2026-02-17T20:38:08.435546" elapsed="0.000111"/>
 </kw>
 <kw name="Should Not Be Equal" owner="BuiltIn">
-<msg time="2026-02-17T20:06:46.501102" level="INFO">Argument types are:
+<msg time="2026-02-17T20:38:08.435964" level="INFO">Argument types are:
 &lt;class 'dict'&gt;
 &lt;class 'NoneType'&gt;</msg>
 <arg>${actual}</arg>
 <arg>${None}</arg>
 <arg>msg=Interface ${expected}[name] not found on ${DEVICE_NAME}</arg>
 <doc>Fails if the given objects are equal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.500825" elapsed="0.000314"/>
+<status status="PASS" start="2026-02-17T20:38:08.435708" elapsed="0.000289"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -304,7 +304,7 @@
 <arg>${expected}[description]</arg>
 <arg>msg=Interface ${expected}[name] description mismatch. Expected: ${expected}[description], Got: ${actual}[description]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.501488" elapsed="0.000253"/>
+<status status="PASS" start="2026-02-17T20:38:08.436323" elapsed="0.000228"/>
 </kw>
 <arg>'${expected}[description]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -312,7 +312,7 @@
 <arg>${expected}[description]</arg>
 <arg>msg=Interface ${expected}[name] description mismatch. Expected: ${expected}[description], Got: ${actual}[description]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.501210" elapsed="0.000565"/>
+<status status="PASS" start="2026-02-17T20:38:08.436065" elapsed="0.000517"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -320,7 +320,7 @@
 <arg>${expected}[admin_status]</arg>
 <arg>msg=Interface ${expected}[name] admin status mismatch. Expected: ${expected}[admin_status], Got: ${actual}[admin_status]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.502059" elapsed="0.000248"/>
+<status status="PASS" start="2026-02-17T20:38:08.436839" elapsed="0.000217"/>
 </kw>
 <arg>'${expected}[admin_status]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -328,7 +328,7 @@
 <arg>${expected}[admin_status]</arg>
 <arg>msg=Interface ${expected}[name] admin status mismatch. Expected: ${expected}[admin_status], Got: ${actual}[admin_status]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.501840" elapsed="0.000498"/>
+<status status="PASS" start="2026-02-17T20:38:08.436641" elapsed="0.000445"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -336,7 +336,7 @@
 <arg>${expected}[oper_status]</arg>
 <arg>msg=Interface ${expected}[name] operational status mismatch. Expected: ${expected}[oper_status], Got: ${actual}[oper_status]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.502609" elapsed="0.000234"/>
+<status status="PASS" start="2026-02-17T20:38:08.437719" elapsed="0.000268"/>
 </kw>
 <arg>'${expected}[oper_status]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -344,35 +344,29 @@
 <arg>${expected}[oper_status]</arg>
 <arg>msg=Interface ${expected}[name] operational status mismatch. Expected: ${expected}[oper_status], Got: ${actual}[oper_status]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.502403" elapsed="0.000473"/>
-</kw>
-<kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:46.503079" level="INFO">✓ Interface Loopback10 verified successfully</msg>
-<arg>✓ Interface ${expected}[name] verified successfully</arg>
-<doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.502937" elapsed="0.000167"/>
+<status status="PASS" start="2026-02-17T20:38:08.437316" elapsed="0.000715"/>
 </kw>
 <var name="${expected}">{'name': 'Loopback10', 'description': 'BGP Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:46.500597" elapsed="0.002526"/>
+<status status="PASS" start="2026-02-17T20:38:08.435502" elapsed="0.002551"/>
 </iter>
 <iter>
 <kw name="Verify Interface Exists" owner="GnmiLibrary">
-<msg time="2026-02-17T20:06:46.503329" level="INFO">${actual} = {'name': 'Loopback11', 'description': 'OSPF Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}</msg>
+<msg time="2026-02-17T20:38:08.438268" level="INFO">${actual} = {'name': 'Loopback11', 'description': 'OSPF Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}</msg>
 <var>${actual}</var>
 <arg>${expected}[name]</arg>
 <arg>${actual_interfaces}</arg>
 <doc>Verify if an interface exists in the actual interfaces list</doc>
-<status status="PASS" start="2026-02-17T20:06:46.503231" elapsed="0.000113"/>
+<status status="PASS" start="2026-02-17T20:38:08.438166" elapsed="0.000117"/>
 </kw>
 <kw name="Should Not Be Equal" owner="BuiltIn">
-<msg time="2026-02-17T20:06:46.503594" level="INFO">Argument types are:
+<msg time="2026-02-17T20:38:08.438520" level="INFO">Argument types are:
 &lt;class 'dict'&gt;
 &lt;class 'NoneType'&gt;</msg>
 <arg>${actual}</arg>
 <arg>${None}</arg>
 <arg>msg=Interface ${expected}[name] not found on ${DEVICE_NAME}</arg>
 <doc>Fails if the given objects are equal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.503397" elapsed="0.000227"/>
+<status status="PASS" start="2026-02-17T20:38:08.438333" elapsed="0.000216"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -380,7 +374,7 @@
 <arg>${expected}[description]</arg>
 <arg>msg=Interface ${expected}[name] description mismatch. Expected: ${expected}[description], Got: ${actual}[description]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.503883" elapsed="0.000230"/>
+<status status="PASS" start="2026-02-17T20:38:08.438797" elapsed="0.000211"/>
 </kw>
 <arg>'${expected}[description]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -388,7 +382,7 @@
 <arg>${expected}[description]</arg>
 <arg>msg=Interface ${expected}[name] description mismatch. Expected: ${expected}[description], Got: ${actual}[description]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.503685" elapsed="0.000461"/>
+<status status="PASS" start="2026-02-17T20:38:08.438609" elapsed="0.000429"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -396,7 +390,7 @@
 <arg>${expected}[admin_status]</arg>
 <arg>msg=Interface ${expected}[name] admin status mismatch. Expected: ${expected}[admin_status], Got: ${actual}[admin_status]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.504401" elapsed="0.000227"/>
+<status status="PASS" start="2026-02-17T20:38:08.439256" elapsed="0.000187"/>
 </kw>
 <arg>'${expected}[admin_status]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -404,7 +398,7 @@
 <arg>${expected}[admin_status]</arg>
 <arg>msg=Interface ${expected}[name] admin status mismatch. Expected: ${expected}[admin_status], Got: ${actual}[admin_status]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.504207" elapsed="0.000496"/>
+<status status="PASS" start="2026-02-17T20:38:08.439095" elapsed="0.000373"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -412,7 +406,7 @@
 <arg>${expected}[oper_status]</arg>
 <arg>msg=Interface ${expected}[name] operational status mismatch. Expected: ${expected}[oper_status], Got: ${actual}[oper_status]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.504963" elapsed="0.000241"/>
+<status status="PASS" start="2026-02-17T20:38:08.439770" elapsed="0.000197"/>
 </kw>
 <arg>'${expected}[oper_status]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -420,35 +414,29 @@
 <arg>${expected}[oper_status]</arg>
 <arg>msg=Interface ${expected}[name] operational status mismatch. Expected: ${expected}[oper_status], Got: ${actual}[oper_status]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.504768" elapsed="0.000467"/>
-</kw>
-<kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:46.505429" level="INFO">✓ Interface Loopback11 verified successfully</msg>
-<arg>✓ Interface ${expected}[name] verified successfully</arg>
-<doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.505293" elapsed="0.000161"/>
+<status status="PASS" start="2026-02-17T20:38:08.439608" elapsed="0.000386"/>
 </kw>
 <var name="${expected}">{'name': 'Loopback11', 'description': 'OSPF Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:46.503188" elapsed="0.002285"/>
+<status status="PASS" start="2026-02-17T20:38:08.438121" elapsed="0.001892"/>
 </iter>
 <iter>
 <kw name="Verify Interface Exists" owner="GnmiLibrary">
-<msg time="2026-02-17T20:06:46.505682" level="INFO">${actual} = {'name': 'Loopback12', 'description': 'MPLS LDP Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}</msg>
+<msg time="2026-02-17T20:38:08.440185" level="INFO">${actual} = {'name': 'Loopback12', 'description': 'MPLS LDP Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}</msg>
 <var>${actual}</var>
 <arg>${expected}[name]</arg>
 <arg>${actual_interfaces}</arg>
 <doc>Verify if an interface exists in the actual interfaces list</doc>
-<status status="PASS" start="2026-02-17T20:06:46.505576" elapsed="0.000121"/>
+<status status="PASS" start="2026-02-17T20:38:08.440098" elapsed="0.000100"/>
 </kw>
 <kw name="Should Not Be Equal" owner="BuiltIn">
-<msg time="2026-02-17T20:06:46.505946" level="INFO">Argument types are:
+<msg time="2026-02-17T20:38:08.440403" level="INFO">Argument types are:
 &lt;class 'dict'&gt;
 &lt;class 'NoneType'&gt;</msg>
 <arg>${actual}</arg>
 <arg>${None}</arg>
 <arg>msg=Interface ${expected}[name] not found on ${DEVICE_NAME}</arg>
 <doc>Fails if the given objects are equal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.505751" elapsed="0.000224"/>
+<status status="PASS" start="2026-02-17T20:38:08.440241" elapsed="0.000185"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -456,7 +444,7 @@
 <arg>${expected}[description]</arg>
 <arg>msg=Interface ${expected}[name] description mismatch. Expected: ${expected}[description], Got: ${actual}[description]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.506231" elapsed="0.000228"/>
+<status status="PASS" start="2026-02-17T20:38:08.440637" elapsed="0.000186"/>
 </kw>
 <arg>'${expected}[description]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -464,7 +452,7 @@
 <arg>${expected}[description]</arg>
 <arg>msg=Interface ${expected}[name] description mismatch. Expected: ${expected}[description], Got: ${actual}[description]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.506037" elapsed="0.000453"/>
+<status status="PASS" start="2026-02-17T20:38:08.440477" elapsed="0.000371"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -472,7 +460,7 @@
 <arg>${expected}[admin_status]</arg>
 <arg>msg=Interface ${expected}[name] admin status mismatch. Expected: ${expected}[admin_status], Got: ${actual}[admin_status]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.506753" elapsed="0.000229"/>
+<status status="PASS" start="2026-02-17T20:38:08.441067" elapsed="0.000190"/>
 </kw>
 <arg>'${expected}[admin_status]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -480,7 +468,7 @@
 <arg>${expected}[admin_status]</arg>
 <arg>msg=Interface ${expected}[name] admin status mismatch. Expected: ${expected}[admin_status], Got: ${actual}[admin_status]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.506552" elapsed="0.000462"/>
+<status status="PASS" start="2026-02-17T20:38:08.440899" elapsed="0.000383"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -488,7 +476,7 @@
 <arg>${expected}[oper_status]</arg>
 <arg>msg=Interface ${expected}[name] operational status mismatch. Expected: ${expected}[oper_status], Got: ${actual}[oper_status]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.507273" elapsed="0.000211"/>
+<status status="PASS" start="2026-02-17T20:38:08.441489" elapsed="0.000182"/>
 </kw>
 <arg>'${expected}[oper_status]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -496,35 +484,29 @@
 <arg>${expected}[oper_status]</arg>
 <arg>msg=Interface ${expected}[name] operational status mismatch. Expected: ${expected}[oper_status], Got: ${actual}[oper_status]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.507076" elapsed="0.000436"/>
-</kw>
-<kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:46.507687" level="INFO">✓ Interface Loopback12 verified successfully</msg>
-<arg>✓ Interface ${expected}[name] verified successfully</arg>
-<doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.507566" elapsed="0.000142"/>
+<status status="PASS" start="2026-02-17T20:38:08.441332" elapsed="0.000365"/>
 </kw>
 <var name="${expected}">{'name': 'Loopback12', 'description': 'MPLS LDP Router ID', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:46.505534" elapsed="0.002191"/>
+<status status="PASS" start="2026-02-17T20:38:08.440063" elapsed="0.001653"/>
 </iter>
 <iter>
 <kw name="Verify Interface Exists" owner="GnmiLibrary">
-<msg time="2026-02-17T20:06:46.507903" level="INFO">${actual} = {'name': 'Loopback13', 'description': 'Management Interface', 'admin_status': 'UP', 'oper_status': 'UP'}</msg>
+<msg time="2026-02-17T20:38:08.441877" level="INFO">${actual} = {'name': 'Loopback13', 'description': 'Management Interface', 'admin_status': 'UP', 'oper_status': 'UP'}</msg>
 <var>${actual}</var>
 <arg>${expected}[name]</arg>
 <arg>${actual_interfaces}</arg>
 <doc>Verify if an interface exists in the actual interfaces list</doc>
-<status status="PASS" start="2026-02-17T20:06:46.507816" elapsed="0.000100"/>
+<status status="PASS" start="2026-02-17T20:38:08.441796" elapsed="0.000093"/>
 </kw>
 <kw name="Should Not Be Equal" owner="BuiltIn">
-<msg time="2026-02-17T20:06:46.508136" level="INFO">Argument types are:
+<msg time="2026-02-17T20:38:08.442087" level="INFO">Argument types are:
 &lt;class 'dict'&gt;
 &lt;class 'NoneType'&gt;</msg>
 <arg>${actual}</arg>
 <arg>${None}</arg>
 <arg>msg=Interface ${expected}[name] not found on ${DEVICE_NAME}</arg>
 <doc>Fails if the given objects are equal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.507963" elapsed="0.000199"/>
+<status status="PASS" start="2026-02-17T20:38:08.441931" elapsed="0.000179"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -532,7 +514,7 @@
 <arg>${expected}[description]</arg>
 <arg>msg=Interface ${expected}[name] description mismatch. Expected: ${expected}[description], Got: ${actual}[description]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.508385" elapsed="0.000202"/>
+<status status="PASS" start="2026-02-17T20:38:08.442313" elapsed="0.000181"/>
 </kw>
 <arg>'${expected}[description]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -540,7 +522,7 @@
 <arg>${expected}[description]</arg>
 <arg>msg=Interface ${expected}[name] description mismatch. Expected: ${expected}[description], Got: ${actual}[description]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.508216" elapsed="0.000399"/>
+<status status="PASS" start="2026-02-17T20:38:08.442158" elapsed="0.000360"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -548,7 +530,7 @@
 <arg>${expected}[admin_status]</arg>
 <arg>msg=Interface ${expected}[name] admin status mismatch. Expected: ${expected}[admin_status], Got: ${actual}[admin_status]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.508838" elapsed="0.000284"/>
+<status status="PASS" start="2026-02-17T20:38:08.442916" elapsed="0.000320"/>
 </kw>
 <arg>'${expected}[admin_status]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -556,7 +538,7 @@
 <arg>${expected}[admin_status]</arg>
 <arg>msg=Interface ${expected}[name] admin status mismatch. Expected: ${expected}[admin_status], Got: ${actual}[admin_status]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.508669" elapsed="0.000515"/>
+<status status="PASS" start="2026-02-17T20:38:08.442567" elapsed="0.000700"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -564,7 +546,7 @@
 <arg>${expected}[oper_status]</arg>
 <arg>msg=Interface ${expected}[name] operational status mismatch. Expected: ${expected}[oper_status], Got: ${actual}[oper_status]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.509413" elapsed="0.000197"/>
+<status status="PASS" start="2026-02-17T20:38:08.443511" elapsed="0.000187"/>
 </kw>
 <arg>'${expected}[oper_status]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -572,35 +554,29 @@
 <arg>${expected}[oper_status]</arg>
 <arg>msg=Interface ${expected}[name] operational status mismatch. Expected: ${expected}[oper_status], Got: ${actual}[oper_status]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.509240" elapsed="0.000398"/>
-</kw>
-<kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:46.509806" level="INFO">✓ Interface Loopback13 verified successfully</msg>
-<arg>✓ Interface ${expected}[name] verified successfully</arg>
-<doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.509689" elapsed="0.000138"/>
+<status status="PASS" start="2026-02-17T20:38:08.443331" elapsed="0.000436"/>
 </kw>
 <var name="${expected}">{'name': 'Loopback13', 'description': 'Management Interface', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:46.507779" elapsed="0.002065"/>
+<status status="PASS" start="2026-02-17T20:38:08.441762" elapsed="0.002026"/>
 </iter>
 <iter>
 <kw name="Verify Interface Exists" owner="GnmiLibrary">
-<msg time="2026-02-17T20:06:46.510019" level="INFO">${actual} = {'name': 'Loopback14', 'description': 'VPN Service Endpoint', 'admin_status': 'UP', 'oper_status': 'UP'}</msg>
+<msg time="2026-02-17T20:38:08.443957" level="INFO">${actual} = {'name': 'Loopback14', 'description': 'VPN Service Endpoint', 'admin_status': 'UP', 'oper_status': 'UP'}</msg>
 <var>${actual}</var>
 <arg>${expected}[name]</arg>
 <arg>${actual_interfaces}</arg>
 <doc>Verify if an interface exists in the actual interfaces list</doc>
-<status status="PASS" start="2026-02-17T20:06:46.509934" elapsed="0.000099"/>
+<status status="PASS" start="2026-02-17T20:38:08.443871" elapsed="0.000101"/>
 </kw>
 <kw name="Should Not Be Equal" owner="BuiltIn">
-<msg time="2026-02-17T20:06:46.510250" level="INFO">Argument types are:
+<msg time="2026-02-17T20:38:08.444177" level="INFO">Argument types are:
 &lt;class 'dict'&gt;
 &lt;class 'NoneType'&gt;</msg>
 <arg>${actual}</arg>
 <arg>${None}</arg>
 <arg>msg=Interface ${expected}[name] not found on ${DEVICE_NAME}</arg>
 <doc>Fails if the given objects are equal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.510080" elapsed="0.000195"/>
+<status status="PASS" start="2026-02-17T20:38:08.444015" elapsed="0.000192"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -608,7 +584,7 @@
 <arg>${expected}[description]</arg>
 <arg>msg=Interface ${expected}[name] description mismatch. Expected: ${expected}[description], Got: ${actual}[description]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.510501" elapsed="0.000200"/>
+<status status="PASS" start="2026-02-17T20:38:08.444512" elapsed="0.000185"/>
 </kw>
 <arg>'${expected}[description]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -616,7 +592,7 @@
 <arg>${expected}[description]</arg>
 <arg>msg=Interface ${expected}[name] description mismatch. Expected: ${expected}[description], Got: ${actual}[description]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.510331" elapsed="0.000399"/>
+<status status="PASS" start="2026-02-17T20:38:08.444256" elapsed="0.000466"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -624,7 +600,7 @@
 <arg>${expected}[admin_status]</arg>
 <arg>msg=Interface ${expected}[name] admin status mismatch. Expected: ${expected}[admin_status], Got: ${actual}[admin_status]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.510953" elapsed="0.000203"/>
+<status status="PASS" start="2026-02-17T20:38:08.444929" elapsed="0.000182"/>
 </kw>
 <arg>'${expected}[admin_status]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -632,7 +608,7 @@
 <arg>${expected}[admin_status]</arg>
 <arg>msg=Interface ${expected}[name] admin status mismatch. Expected: ${expected}[admin_status], Got: ${actual}[admin_status]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.510784" elapsed="0.000400"/>
+<status status="PASS" start="2026-02-17T20:38:08.444772" elapsed="0.000365"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -640,7 +616,7 @@
 <arg>${expected}[oper_status]</arg>
 <arg>msg=Interface ${expected}[name] operational status mismatch. Expected: ${expected}[oper_status], Got: ${actual}[oper_status]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.511408" elapsed="0.000200"/>
+<status status="PASS" start="2026-02-17T20:38:08.445340" elapsed="0.000183"/>
 </kw>
 <arg>'${expected}[oper_status]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -648,35 +624,29 @@
 <arg>${expected}[oper_status]</arg>
 <arg>msg=Interface ${expected}[name] operational status mismatch. Expected: ${expected}[oper_status], Got: ${actual}[oper_status]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.511239" elapsed="0.000397"/>
-</kw>
-<kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:46.511807" level="INFO">✓ Interface Loopback14 verified successfully</msg>
-<arg>✓ Interface ${expected}[name] verified successfully</arg>
-<doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.511689" elapsed="0.000139"/>
+<status status="PASS" start="2026-02-17T20:38:08.445185" elapsed="0.000364"/>
 </kw>
 <var name="${expected}">{'name': 'Loopback14', 'description': 'VPN Service Endpoint', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:46.509898" elapsed="0.001947"/>
+<status status="PASS" start="2026-02-17T20:38:08.443838" elapsed="0.001729"/>
 </iter>
 <iter>
 <kw name="Verify Interface Exists" owner="GnmiLibrary">
-<msg time="2026-02-17T20:06:46.512023" level="INFO">${actual} = {'name': 'Loopback15', 'description': 'Monitoring and Telemetry', 'admin_status': 'UP', 'oper_status': 'UP'}</msg>
+<msg time="2026-02-17T20:38:08.445729" level="INFO">${actual} = {'name': 'Loopback15', 'description': 'Monitoring and Telemetry', 'admin_status': 'UP', 'oper_status': 'UP'}</msg>
 <var>${actual}</var>
 <arg>${expected}[name]</arg>
 <arg>${actual_interfaces}</arg>
 <doc>Verify if an interface exists in the actual interfaces list</doc>
-<status status="PASS" start="2026-02-17T20:06:46.511935" elapsed="0.000102"/>
+<status status="PASS" start="2026-02-17T20:38:08.445650" elapsed="0.000092"/>
 </kw>
 <kw name="Should Not Be Equal" owner="BuiltIn">
-<msg time="2026-02-17T20:06:46.512254" level="INFO">Argument types are:
+<msg time="2026-02-17T20:38:08.445941" level="INFO">Argument types are:
 &lt;class 'dict'&gt;
 &lt;class 'NoneType'&gt;</msg>
 <arg>${actual}</arg>
 <arg>${None}</arg>
 <arg>msg=Interface ${expected}[name] not found on ${DEVICE_NAME}</arg>
 <doc>Fails if the given objects are equal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.512083" elapsed="0.000196"/>
+<status status="PASS" start="2026-02-17T20:38:08.445786" elapsed="0.000177"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -684,7 +654,7 @@
 <arg>${expected}[description]</arg>
 <arg>msg=Interface ${expected}[name] description mismatch. Expected: ${expected}[description], Got: ${actual}[description]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.512498" elapsed="0.000200"/>
+<status status="PASS" start="2026-02-17T20:38:08.446167" elapsed="0.000182"/>
 </kw>
 <arg>'${expected}[description]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -692,7 +662,7 @@
 <arg>${expected}[description]</arg>
 <arg>msg=Interface ${expected}[name] description mismatch. Expected: ${expected}[description], Got: ${actual}[description]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.512332" elapsed="0.000393"/>
+<status status="PASS" start="2026-02-17T20:38:08.446012" elapsed="0.000362"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -700,7 +670,7 @@
 <arg>${expected}[admin_status]</arg>
 <arg>msg=Interface ${expected}[name] admin status mismatch. Expected: ${expected}[admin_status], Got: ${actual}[admin_status]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.512945" elapsed="0.000200"/>
+<status status="PASS" start="2026-02-17T20:38:08.446581" elapsed="0.000183"/>
 </kw>
 <arg>'${expected}[admin_status]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -708,7 +678,7 @@
 <arg>${expected}[admin_status]</arg>
 <arg>msg=Interface ${expected}[name] admin status mismatch. Expected: ${expected}[admin_status], Got: ${actual}[admin_status]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.512779" elapsed="0.000426"/>
+<status status="PASS" start="2026-02-17T20:38:08.446424" elapsed="0.000365"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Should Be Equal" owner="BuiltIn">
@@ -716,7 +686,7 @@
 <arg>${expected}[oper_status]</arg>
 <arg>msg=Interface ${expected}[name] operational status mismatch. Expected: ${expected}[oper_status], Got: ${actual}[oper_status]</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.513426" elapsed="0.000198"/>
+<status status="PASS" start="2026-02-17T20:38:08.446993" elapsed="0.000182"/>
 </kw>
 <arg>'${expected}[oper_status]' != ''</arg>
 <arg>Should Be Equal</arg>
@@ -724,33 +694,27 @@
 <arg>${expected}[oper_status]</arg>
 <arg>msg=Interface ${expected}[name] operational status mismatch. Expected: ${expected}[oper_status], Got: ${actual}[oper_status]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.513259" elapsed="0.000393"/>
-</kw>
-<kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:46.513818" level="INFO">✓ Interface Loopback15 verified successfully</msg>
-<arg>✓ Interface ${expected}[name] verified successfully</arg>
-<doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.513702" elapsed="0.000137"/>
+<status status="PASS" start="2026-02-17T20:38:08.446841" elapsed="0.000358"/>
 </kw>
 <var name="${expected}">{'name': 'Loopback15', 'description': 'Monitoring and Telemetry', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="PASS" start="2026-02-17T20:06:46.511898" elapsed="0.001958"/>
+<status status="PASS" start="2026-02-17T20:38:08.445614" elapsed="0.001605"/>
 </iter>
 <iter>
 <kw name="Verify Interface Exists" owner="GnmiLibrary">
-<msg time="2026-02-17T20:06:46.514032" level="INFO">${actual} = None</msg>
+<msg time="2026-02-17T20:38:08.447423" level="INFO">${actual} = None</msg>
 <var>${actual}</var>
 <arg>${expected}[name]</arg>
 <arg>${actual_interfaces}</arg>
 <doc>Verify if an interface exists in the actual interfaces list</doc>
-<status status="PASS" start="2026-02-17T20:06:46.513944" elapsed="0.000101"/>
+<status status="PASS" start="2026-02-17T20:38:08.447341" elapsed="0.000093"/>
 </kw>
 <kw name="Should Not Be Equal" owner="BuiltIn">
-<msg time="2026-02-17T20:06:46.514322" level="FAIL">Interface Loopback20 not found on iosxr-alwayson: None == None</msg>
+<msg time="2026-02-17T20:38:08.447692" level="FAIL">Interface Loopback20 not found on iosxr-alwayson: None == None</msg>
 <arg>${actual}</arg>
 <arg>${None}</arg>
 <arg>msg=Interface ${expected}[name] not found on ${DEVICE_NAME}</arg>
 <doc>Fails if the given objects are equal.</doc>
-<status status="FAIL" start="2026-02-17T20:06:46.514089" elapsed="0.000324">Interface Loopback20 not found on iosxr-alwayson: None == None</status>
+<status status="FAIL" start="2026-02-17T20:38:08.447477" elapsed="0.000300">Interface Loopback20 not found on iosxr-alwayson: None == None</status>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <arg>'${expected}[description]' != ''</arg>
@@ -759,7 +723,7 @@
 <arg>${expected}[description]</arg>
 <arg>msg=Interface ${expected}[name] description mismatch. Expected: ${expected}[description], Got: ${actual}[description]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="NOT RUN" start="2026-02-17T20:06:46.514483" elapsed="0.000010"/>
+<status status="NOT RUN" start="2026-02-17T20:38:08.447842" elapsed="0.000010"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <arg>'${expected}[admin_status]' != ''</arg>
@@ -768,7 +732,7 @@
 <arg>${expected}[admin_status]</arg>
 <arg>msg=Interface ${expected}[name] admin status mismatch. Expected: ${expected}[admin_status], Got: ${actual}[admin_status]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="NOT RUN" start="2026-02-17T20:06:46.514543" elapsed="0.000008"/>
+<status status="NOT RUN" start="2026-02-17T20:38:08.447900" elapsed="0.000008"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <arg>'${expected}[oper_status]' != ''</arg>
@@ -777,58 +741,49 @@
 <arg>${expected}[oper_status]</arg>
 <arg>msg=Interface ${expected}[name] operational status mismatch. Expected: ${expected}[oper_status], Got: ${actual}[oper_status]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="NOT RUN" start="2026-02-17T20:06:46.514597" elapsed="0.000008"/>
-</kw>
-<kw name="Log" owner="BuiltIn">
-<arg>✓ Interface ${expected}[name] verified successfully</arg>
-<doc>Logs the given message with the given level.</doc>
-<status status="NOT RUN" start="2026-02-17T20:06:46.514649" elapsed="0.000008"/>
+<status status="NOT RUN" start="2026-02-17T20:38:08.447954" elapsed="0.000008"/>
 </kw>
 <var name="${expected}">{'name': 'Loopback20', 'description': 'SR-TE Controller Endpoint', 'admin_status': 'UP', 'oper_status': 'UP'}</var>
-<status status="FAIL" start="2026-02-17T20:06:46.513908" elapsed="0.000782">Interface Loopback20 not found on iosxr-alwayson: None == None</status>
+<status status="FAIL" start="2026-02-17T20:38:08.447307" elapsed="0.000690">Interface Loopback20 not found on iosxr-alwayson: None == None</status>
 </iter>
 <var>${expected}</var>
 <value>@{expected_interfaces}</value>
-<status status="FAIL" start="2026-02-17T20:06:46.500483" elapsed="0.014243">Interface Loopback20 not found on iosxr-alwayson: None == None</status>
+<status status="FAIL" start="2026-02-17T20:38:08.435402" elapsed="0.012628">Interface Loopback20 not found on iosxr-alwayson: None == None</status>
 </for>
-<kw name="Log" owner="BuiltIn">
-<arg>✓ Interface audit passed for ${DEVICE_NAME}</arg>
-<doc>Logs the given message with the given level.</doc>
-<status status="NOT RUN" start="2026-02-17T20:06:46.514780" elapsed="0.000008"/>
-</kw>
 <doc>Connect to device and verify interfaces match expected configuration</doc>
-<status status="FAIL" start="2026-02-17T20:06:45.833769" elapsed="0.681077">Interface Loopback20 not found on iosxr-alwayson: None == None</status>
+<status status="FAIL" start="2026-02-17T20:38:07.753507" elapsed="0.694590">Interface Loopback20 not found on iosxr-alwayson: None == None</status>
 </kw>
 <doc>Connect to device and verify interface presence, descriptions, and statuses</doc>
 <tag>audit</tag>
 <tag>interface</tag>
 <tag>multivendor</tag>
-<status status="FAIL" start="2026-02-17T20:06:45.833487" elapsed="0.681485">Interface Loopback20 not found on iosxr-alwayson: None == None</status>
+<status status="FAIL" start="2026-02-17T20:38:07.753119" elapsed="0.695106">Interface Loopback20 not found on iosxr-alwayson: None == None</status>
 </test>
 <kw name="Cleanup Test Environment" type="TEARDOWN">
 <kw name="Disconnect All" owner="GnmiLibrary">
-<msg time="2026-02-17T20:06:46.515483" level="INFO">Disconnected from iosxr-alwayson</msg>
+<msg time="2026-02-17T20:38:08.448719" level="INFO">Disconnected from iosxr-alwayson</msg>
 <doc>Disconnect from all devices</doc>
-<status status="PASS" start="2026-02-17T20:06:46.515406" elapsed="0.000109"/>
+<status status="PASS" start="2026-02-17T20:38:08.448637" elapsed="0.000115"/>
 </kw>
 <kw name="Disconnect From Device" owner="GnmiLibrary">
 <arg>${DEVICE_NAME}</arg>
 <doc>Disconnect from a network device</doc>
-<status status="PASS" start="2026-02-17T20:06:46.515553" elapsed="0.000056"/>
+<status status="PASS" start="2026-02-17T20:38:08.448791" elapsed="0.000058"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-02-17T20:06:46.515749" level="INFO">🧹 Test environment cleaned up</msg>
+<msg time="2026-02-17T20:38:08.448993" level="INFO">🧹 Test environment cleaned up</msg>
 <arg>🧹 Test environment cleaned up</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-02-17T20:06:46.515651" elapsed="0.000119"/>
+<status status="PASS" start="2026-02-17T20:38:08.448894" elapsed="0.000122"/>
 </kw>
 <doc>Disconnect from device and cleanup</doc>
-<status status="PASS" start="2026-02-17T20:06:46.515315" elapsed="0.000482"/>
+<status status="PASS" start="2026-02-17T20:38:08.448542" elapsed="0.000502"/>
 </kw>
-<doc>Network Device Interface Audit using gNMI
+<doc>Month of Smart Connections Lab - Week 3: Trust Issues
+Network Device Interface Audit using gNMI
 This test suite verifies interface names, descriptions, and statuses
 using OpenConfig models via gNMI protocol</doc>
-<status status="FAIL" start="2026-02-17T20:06:43.551412" elapsed="2.964400"/>
+<status status="FAIL" start="2026-02-17T20:38:05.438369" elapsed="3.010691"/>
 </suite>
 <statistics>
 <total>

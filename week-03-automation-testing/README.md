@@ -137,6 +137,21 @@ Report:  report.html
 
 Open `report.html` in a browser to view detailed results, including which interfaces passed validation and which failed (with specific error messages).
 
+<div align="center">
+<img src="../images/week3_robottest.png"/>
+</div>
+
+## Additional Resources
+
+| Resource | Description |
+|----------|-------------|
+| [🤖 Robot Framework User Guide](https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html) | Complete Robot Framework documentation |
+| [📖 Robot Framework Standard Libraries](https://robotframework.org/robotframework/#standard-libraries) | Built-in libraries reference |
+| [🎓 gNMI Specification](https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md) | Technical specification for gNMI protocol |
+| [🐍 pygnmi Library](https://github.com/akarneliuk/pygnmi) | Python gNMI client used in this project |
+| [📘 OpenConfig Models](https://github.com/openconfig/public) | Official OpenConfig YANG models repository |
+| [🧪 Robot Framework CI/CD Integration](https://github.com/robotframework/RobotDemo) | Example project showing CI/CD integration |
+
 ---
 **⬅️ Previous Week:** [Week 2 - Choose Your Love Language](../week-02-automation-patterns/)</br>
 **➡️ Next Week:** [Week 4 - Intentions Matter]()</br>
