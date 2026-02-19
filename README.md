@@ -28,7 +28,7 @@ Each week of February, a new folder with working examples will be published:
 |------|--------------|--------|-------------|
 | Week 1 | Thursday, Feb 5 | `week-01-automation-multivendor` 🔗 | [🎞️ Click to view!](https://www.youtube.com/watch?v=5OG3_zJ25KE) |
 | Week 2 | Thursday, Feb 12 | `week-02-automation-patterns` ⚙️ | [🎞️ Click to view!](https://www.youtube.com/watch?v=EqcBJdX24p8) |
-| Week 3 | Thursday, Feb 19 | `week-03-automation-testing` ✅ | `Not released yet!` |
+| Week 3 | Thursday, Feb 19 | `week-03-automation-testing` ✅ | [🎞️ Click to view!](https://youtu.be/AAb5Pw1gFto) |
 | Week 4 | Thursday, Feb 26 | `week-04-agentic-automation` 🤖 | `Not released yet!` |
 
 ---
