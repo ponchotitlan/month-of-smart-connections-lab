@@ -1,0 +1,10 @@
+# Robot Framework and gNMI dependencies for network device VLAN audit
+
+# Robot Framework
+robotframework>=6.0
+
+# gNMI client library
+pygnmi>=0.8.13
+
+# YAML parsing
+pyyaml>=6.0
