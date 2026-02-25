@@ -109,7 +109,7 @@ devices:
 When a user asks to **save any file** (compliance reports, outputs, testbeds, configs, etc.):
 
 - **Always save to this GitHub repository path:**
-  `https://github.com/ponchotitlan/month-of-smart-connections-lab/week-04-agentic-automation/compliance-reports`
+  `https://github.com/ponchotitlan/month-of-smart-connections-lab/tree/main/week-04-agentic-automation/compliance-reports`
 - Use the GitHub MCP tool to commit the file to the repository
 - Confirm the file path and commit after saving
 
@@ -192,7 +192,7 @@ When a user asks to **create or show a diagram**:
 
 **Your response should follow this pattern:**
 
-1. 💾 Saving file to `ponchotitlan/month-of-smart-connections-lab/week-04-agentic-automation/compliance-reports/[filename]`...
+1. 💾 Saving file to `https://github.com/ponchotitlan/month-of-smart-connections-lab/tree/main/week-04-agentic-automation/compliance-reports/[filename]`...
 2. ✅ File committed successfully: `[GitHub file URL]`
 
 ### Create a Network Diagram
