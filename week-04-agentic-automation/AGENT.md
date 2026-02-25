@@ -50,8 +50,12 @@ When a user asks to **show the device inventory**:
 | `os` | Slug of the **Type** field | e.g., `ios`, `nxos`, `iosxr` |
 | `connections.default.class` | Always `cli` | Fixed default value |
 | `protocol` | Slug of the **Protocol** field | e.g., `ssh`, `telnet` |
+| `credentials.default.username` | Always `dummy` | Placeholder — real credentials obtained from NetBox at connect time |
+| `credentials.default.password` | Always `dummy` | Placeholder — real credentials obtained from NetBox at connect time |
 
 > ⚠️ Always use the **slug** (lowercase, hyphen-separated identifier) of NetBox fields — never the display name.
+
+> 🔒 Credentials are set to `dummy` during sync as placeholders. The actual username and password will be retrieved from NetBox when establishing a live connection to a device.
 
 **Example sync result for a device:**
 ```yaml
@@ -59,6 +63,10 @@ devices:
   router-01:
     os: ios-xe
     platform: ios-xe
+    credentials:
+      default:
+        username: dummy
+        password: dummy
     connections:
       default:
         class: cli
@@ -171,7 +179,7 @@ When a user asks to **create or show a diagram**:
 
 1. 🔄 **Syncing NetBox → pyATS...**
    - Querying all devices from NetBox (read-only)
-   - Mapping fields: `platform` ← Platform slug, `os` ← Type slug, `protocol` ← Protocol slug, `connection_type` = `cli`
+   - Mapping fields: `platform` ← Platform slug, `os` ← Type slug, `protocol` ← Protocol slug, `connection_type` = `cli`, `credentials` = `dummy`/`dummy` (placeholders)
 2. ✅ **Sync complete.** Displaying inventory from pyATS:
    ```
    [pyATS inventory table or YAML output here]
