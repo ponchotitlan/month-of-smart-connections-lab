@@ -1,0 +1,125 @@
+services:
+
+  # ── NetBox MCP ────────────────────────────────────────────────────────────
+  # Pulls and builds directly from the official netboxlabs/netbox-mcp-server
+  # repo — no local clone required. HTTP transport is mandatory for containers.
+  netbox-mcp:
+    build:
+      context: https://github.com/netboxlabs/netbox-mcp-server.git
+    container_name: netbox-mcp
+    environment:
+      NETBOX_URL: ${NETBOX_URL}
+      NETBOX_TOKEN: ${NETBOX_TOKEN}
+      TRANSPORT: http
+      HOST: ${NETBOX_MCP_HOST}
+      PORT: ${NETBOX_MCP_PORT}
+      LOG_LEVEL: ${NETBOX_MCP_LOG_LEVEL:-INFO}
+      VERIFY_SSL: ${NETBOX_MCP_VERIFY_SSL:-true}
+    ports:
+      - "${NETBOX_MCP_PORT}:${NETBOX_MCP_PORT}"
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway"
+    networks:
+      - mcp-net
+    restart: unless-stopped
+
+  # ── pyATS ─────────────────────────────────────────────────────────────────
+  pyats-mcp:
+    build:
+      context: https://github.com/ponchotitlan/pyATS_MCP.git#netbox-secrets-support
+      dockerfile: Dockerfile
+      platforms:
+        - linux/amd64
+    platform: linux/amd64
+    image: pyats-mcp:latest
+    container_name: pyats-mcp
+    # Note: environment: values below always win over any .env in the build
+    # context (pyATS_MCP/.env). The clone repo can be left completely untouched.
+    environment:
+      MCP_TRANSPORT: ${PYATS_MCP_TRANSPORT}
+      MCP_HOST: ${PYATS_MCP_HOST}
+      MCP_PORT: ${PYATS_MCP_PORT}
+      PYATS_TESTBED_PATH: /app/testbed.yaml
+      PYATS_MCP_ARTIFACTS_DIR: /app/artifacts
+      PYATS_MCP_KEEP_ARTIFACTS: ${PYATS_MCP_KEEP_ARTIFACTS}
+      CREDENTIALS_VAULT_PRIVATE_KEY_PATH: /app/private.key
+      CREDENTIALS_VAULT_TOKEN: ${NETBOX_TOKEN}           # reuses the shared NetBox token
+      CREDENTIALS_VAULT_BASE_URL: ${CREDENTIALS_VAULT_BASE_URL}
+      CREDENTIALS_VAULT_USERNAME_ROLE: ${CREDENTIALS_VAULT_USERNAME_ROLE}
+      CREDENTIALS_VAULT_PASSWORD_ROLE: ${CREDENTIALS_VAULT_PASSWORD_ROLE}
+      CREDENTIALS_VAULT_VERIFY_SSL: ${CREDENTIALS_VAULT_VERIFY_SSL}
+    volumes:
+      - ./testbed.yaml:/app/testbed.yaml:ro
+      - ./private.key:/app/private.key:ro
+      - pyats-mcp-artifacts:/app/artifacts
+    ports:
+      - "${PYATS_MCP_PORT}:${PYATS_MCP_PORT}"
+    networks:
+      - mcp-net
+    restart: unless-stopped
+
+  # ── GitHub MCP ────────────────────────────────────────────────────────────
+  # The official image defaults to stdio. We override the command to use the
+  # built-in HTTP subcommand, which exposes a Streamable HTTP endpoint at
+  # /sse on the specified port — addressable by LibreChat via URL.
+  github-mcp:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM node:20-alpine
+        RUN apk add --no-cache python3 py3-pip && \
+            pip3 install mcp-proxy --break-system-packages
+        EXPOSE ${GITHUB_MCP_PORT}
+    command:
+      - "mcp-proxy"
+      - "--port=${GITHUB_MCP_PORT}"
+      - "--host=${GITHUB_MCP_HOST}"
+      - "--pass-environment"
+      - "--"
+      - "npx"
+      - "-y"
+      - "@modelcontextprotocol/server-github"
+    ports:
+      - "${GITHUB_MCP_PORT}:${GITHUB_MCP_PORT}"
+    environment:
+      GITHUB_PERSONAL_ACCESS_TOKEN: ${GITHUB_PAT}
+    restart: unless-stopped
+    networks:
+      - mcp-net
+
+  # ── DrawIO MCP ────────────────────────────────────────────────────────────
+  # The official image defaults to stdio. We override the command to use the
+  # built-in HTTP subcommand, which exposes a Streamable HTTP endpoint at
+  # /sse on the specified port — addressable by LibreChat via URL.
+  drawio-mcp:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM node:20-alpine
+        RUN apk add --no-cache python3 py3-pip && \
+            pip3 install mcp-proxy --break-system-packages
+        EXPOSE ${DRAWIO_MCP_PORT}
+    command:
+      - "mcp-proxy"
+      - "--port=${DRAWIO_MCP_PORT}"
+      - "--host=${DRAWIO_MCP_HOST}"
+      - "--pass-environment"
+      - "--"
+      - "npx"
+      - "-y"
+      - "@drawio/mcp"
+    ports:
+      - "${DRAWIO_MCP_PORT}:${DRAWIO_MCP_PORT}"
+    networks:
+      - mcp-net
+    restart: unless-stopped
+
+# ── Shared network ─────────────────────────────────────────────────────────
+networks:
+  mcp-net:
+    driver: bridge
+
+# ── Named volumes ──────────────────────────────────────────────────────────
+volumes:
+  pyats-mcp-artifacts:
+  github-mcp-bin:
