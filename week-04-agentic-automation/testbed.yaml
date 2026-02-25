@@ -1,0 +1,59 @@
+# Testbed based on the devices avilable in the Cisco Modeling Labs - Always-On Sandbox
+# You can reserve and launch it for free at https://devnetsandbox.cisco.com/DevNet/catalog/cml-sandbox_cml
+# Make sue to login to the address provided via e-mail using a VPN client
+# This VPN shall be deployed in the same environment where this MCP server is located at
+
+# If you wish to provide your own devices, please follow the structure below and adjust the parameters accordingly
+---
+devices:
+  R1:
+    os: iosxe
+    type: router
+    platform: iol
+    credentials:
+      default:
+        username: cisco
+        password: cisco
+    connections:
+      cli:
+        protocol: telnet
+        ip: 10.10.20.171
+
+  R2:
+    os: iosxe
+    type: router
+    platform: iol
+    credentials:
+      default:
+        username: cisco
+        password: cisco
+    connections:
+      cli:
+        protocol: telnet
+        ip: 10.10.20.172
+
+  SW1:
+    os: iosxe
+    type: switch
+    platform: iol
+    credentials:
+      default:
+        username: cisco
+        password: cisco
+    connections:
+      cli:
+        protocol: telnet
+        ip: 10.10.20.173
+
+  SW2:
+    os: iosxe
+    type: switch
+    platform: iol
+    credentials:
+      default:
+        username: cisco
+        password: cisco
+    connections:
+      cli:
+        protocol: telnet
+        ip: 10.10.20.174

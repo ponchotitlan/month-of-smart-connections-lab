@@ -6,3 +6,4 @@ week-01-automation-multivendor/cisco-asa-cli-6.18/
 week-01-automation-multivendor/cisco-iosxr-cli-7.69/
 actions-runner/
 *__pycache__/
+week-04-agentic-automation/.env
