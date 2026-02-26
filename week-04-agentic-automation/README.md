@@ -166,7 +166,7 @@ Point your AI client (LibreChat, Claude Desktop, or any MCP-compatible client) t
 }
 ```
 
-> Our YouTube video [Ep.4: From Intent to Action with Agentic Automation]() showcases how to do this with LibreChat's web
+> Our YouTube video [Ep.4: From Intent to Action with Agentic Automation](https://youtu.be/YCMW6qSJiD0) showcases how to do this with LibreChat's web
 
 Load `AGENT.md` as the **system prompt** for your session.
 
