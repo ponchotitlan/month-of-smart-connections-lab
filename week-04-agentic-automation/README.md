@@ -87,7 +87,7 @@ Open `.env` and fill in your real values:
 >
 > **Option A — Set up NetBox with the netbox-secrets plugin (full setup)**
 >
-> This project relies on NetBox having the [netbox-secrets](https://github.com/Onemind-Services-LLC/netbox-secrets) plugin enabled. The pyATS MCP server fetches device credentials from NetBox secrets stored under the roles `username` and `password` for each device. To set this up yourself on a local Docker NetBox, follow [this guide]().
+> This project relies on NetBox having the [netbox-secrets](https://github.com/Onemind-Services-LLC/netbox-secrets) plugin enabled. The pyATS MCP server fetches device credentials from NetBox secrets stored under the roles `username` and `password` for each device. To set this up yourself on a local Docker NetBox, follow [this guide](netbox_secrets_setup.md).
 >
 > **Option B — Skip NetBox entirely and use the provided testbed (recommended for a quick start)**
 >
@@ -245,7 +245,7 @@ Agent:  🔄 Syncing NetBox → pyATS...
 |----------|-------------|
 | [🤖 Model Context Protocol Specification](https://modelcontextprotocol.io/) | Official MCP documentation and SDK references |
 | [📦 NetBox MCP Server](https://github.com/netboxlabs/netbox-mcp-server) | Source of the NetBox MCP server used in this project |
-| [🐍 pyATS MCP Server](https://github.com/ponchotitlan/pyATS_MCP) | Custom pyATS MCP server with NetBox secrets integration |
+| [🐍 pyATS MCP Server with netbox-secrets support](https://github.com/ponchotitlan/pyATS_MCP/tree/netbox-secrets-support) | Custom pyATS MCP server with NetBox secrets integration |
 | [🐙 GitHub MCP Server](https://github.com/modelcontextprotocol/servers/tree/main/src/github) | Official GitHub MCP server |
 | [✏️ DrawIO MCP Server](https://github.com/drawio-app/mcp) | DrawIO MCP server for diagram generation |
 | [📘 NetBox Documentation](https://netbox.readthedocs.io/) | NetBox setup, API, and token management |
