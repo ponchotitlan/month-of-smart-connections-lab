@@ -100,9 +100,6 @@ Open `.env` and fill in your real values:
 >   build:
 >     context: https://github.com/ponchotitlan/pyATS_MCP.git
 >     dockerfile: Dockerfile
->     platforms:
->       - linux/amd64
->   platform: linux/amd64
 >   image: pyats-mcp:latest
 >   container_name: pyats-mcp
 >   environment:
