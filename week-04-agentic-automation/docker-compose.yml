@@ -17,29 +17,27 @@ services:
       VERIFY_SSL: ${NETBOX_MCP_VERIFY_SSL:-true}
     ports:
       - "${NETBOX_MCP_PORT}:${NETBOX_MCP_PORT}"
-    # extra_hosts:
-    #   - "host.docker.internal:host-gateway"
     networks:
       - mcp-net
     restart: unless-stopped
 
-  # ── pyATS ─────────────────────────────────────────────────────────────────
+  # ── pyATS MCP ─────────────────────────────────────────────────────────────────
+  # Pulls and builds directly from my community pyATS MCP repo
+  # ATTENTION! This service uses the branch "netbox-secrets-support", which fetches secrets
+  # "username" and "password" from a Netbox server with the plugin netbox-secrets.
+  # Follow the instructions in the README of the repo to set up the Netbox server and
+  # plugin correctly before using this service, or to use a stand-alone version of this MCP server
+  #based on a testbed.yaml file instead.
   pyats-mcp:
     build:
       context: https://github.com/ponchotitlan/pyATS_MCP.git#netbox-secrets-support
       dockerfile: Dockerfile
-      platforms:
-        - linux/amd64
-    platform: linux/amd64
     image: pyats-mcp:latest
     container_name: pyats-mcp
-    # Note: environment: values below always win over any .env in the build
-    # context (pyATS_MCP/.env). The clone repo can be left completely untouched.
     environment:
       MCP_TRANSPORT: ${PYATS_MCP_TRANSPORT}
       MCP_HOST: ${PYATS_MCP_HOST}
       MCP_PORT: ${PYATS_MCP_PORT}
-      PYATS_TESTBED_PATH: /app/testbed.yaml
       PYATS_MCP_ARTIFACTS_DIR: /app/artifacts
       PYATS_MCP_KEEP_ARTIFACTS: ${PYATS_MCP_KEEP_ARTIFACTS}
       CREDENTIALS_VAULT_PRIVATE_KEY_PATH: /app/private.key
@@ -49,7 +47,6 @@ services:
       CREDENTIALS_VAULT_PASSWORD_ROLE: ${CREDENTIALS_VAULT_PASSWORD_ROLE}
       CREDENTIALS_VAULT_VERIFY_SSL: ${CREDENTIALS_VAULT_VERIFY_SSL}
     volumes:
-      - ./testbed.yaml:/app/testbed.yaml:ro
       - ./private.key:/app/private.key:ro
       - pyats-mcp-artifacts:/app/artifacts
     ports:
