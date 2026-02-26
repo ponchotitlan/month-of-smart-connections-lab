@@ -207,6 +207,11 @@ For each device, add two secrets via **Secrets → Secrets → Add**:
 
 Repeat for R1, R2, SW1, SW2.
 
+<div align="center">
+<img src="../images/week4_netbox_inv.png"/>
+<img src="../images/week4_device_secrets.png"/>
+</div>
+
 ---
 
 ## 8. Create a Privileged User for MCP
