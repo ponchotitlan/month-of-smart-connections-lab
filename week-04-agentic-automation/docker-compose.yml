@@ -1,8 +1,13 @@
 services:
 
+  # Don't forget to populate the .env file with the required variables
+  # before starting the services with "docker-compose up -d"!
+  #
+  # All MCP servers are available at http://${SERVICE_NAME}:${MCP_PORT}/mcp
+  # Via Transport Streamable HTTP
+
+
   # ── NetBox MCP ────────────────────────────────────────────────────────────
-  # Pulls and builds directly from the official netboxlabs/netbox-mcp-server
-  # repo — no local clone required. HTTP transport is mandatory for containers.
   netbox-mcp:
     build:
       context: https://github.com/netboxlabs/netbox-mcp-server.git
@@ -22,12 +27,8 @@ services:
     restart: unless-stopped
 
   # ── pyATS MCP ─────────────────────────────────────────────────────────────────
-  # Pulls and builds directly from my community pyATS MCP repo
   # ATTENTION! This service uses the branch "netbox-secrets-support", which fetches secrets
-  # "username" and "password" from a Netbox server with the plugin netbox-secrets.
-  # Follow the instructions in the README of the repo to set up the Netbox server and
-  # plugin correctly before using this service, or to use a stand-alone version of this MCP server
-  #based on a testbed.yaml file instead.
+  # from the NetBox Secrets plugin instead of environment variables. See the README for details.
   pyats-mcp:
     build:
       context: https://github.com/ponchotitlan/pyATS_MCP.git#netbox-secrets-support
@@ -41,7 +42,7 @@ services:
       PYATS_MCP_ARTIFACTS_DIR: /app/artifacts
       PYATS_MCP_KEEP_ARTIFACTS: ${PYATS_MCP_KEEP_ARTIFACTS}
       CREDENTIALS_VAULT_PRIVATE_KEY_PATH: /app/private.key
-      CREDENTIALS_VAULT_TOKEN: ${NETBOX_TOKEN}           # reuses the shared NetBox token
+      CREDENTIALS_VAULT_TOKEN: ${NETBOX_TOKEN}
       CREDENTIALS_VAULT_BASE_URL: ${CREDENTIALS_VAULT_BASE_URL}
       CREDENTIALS_VAULT_USERNAME_ROLE: ${CREDENTIALS_VAULT_USERNAME_ROLE}
       CREDENTIALS_VAULT_PASSWORD_ROLE: ${CREDENTIALS_VAULT_PASSWORD_ROLE}
@@ -56,57 +57,30 @@ services:
     restart: unless-stopped
 
   # ── GitHub MCP ────────────────────────────────────────────────────────────
-  # The official image defaults to stdio. We override the command to use the
-  # built-in HTTP subcommand, which exposes a Streamable HTTP endpoint at
-  # /sse on the specified port — addressable by LibreChat via URL.
   github-mcp:
     build:
       context: .
-      dockerfile_inline: |
-        FROM node:20-alpine
-        RUN apk add --no-cache python3 py3-pip && \
-            pip3 install mcp-proxy --break-system-packages
-        EXPOSE ${GITHUB_MCP_PORT}
-    command:
-      - "mcp-proxy"
-      - "--port=${GITHUB_MCP_PORT}"
-      - "--host=${GITHUB_MCP_HOST}"
-      - "--pass-environment"
-      - "--"
-      - "npx"
-      - "-y"
-      - "@modelcontextprotocol/server-github"
+      dockerfile: docker/github-mcp.Dockerfile
     ports:
       - "${GITHUB_MCP_PORT}:${GITHUB_MCP_PORT}"
     environment:
+      GITHUB_MCP_PORT: ${GITHUB_MCP_PORT}
       GITHUB_PERSONAL_ACCESS_TOKEN: ${GITHUB_PAT}
+      GITHUB_TOOLSETS: ${GITHUB_TOOLSETS:-repos,issues,pull_requests,actions}
+      GITHUB_HOST: ${GITHUB_HOST:-}
     restart: unless-stopped
     networks:
       - mcp-net
 
   # ── DrawIO MCP ────────────────────────────────────────────────────────────
-  # The official image defaults to stdio. We override the command to use the
-  # built-in HTTP subcommand, which exposes a Streamable HTTP endpoint at
-  # /sse on the specified port — addressable by LibreChat via URL.
   drawio-mcp:
     build:
       context: .
-      dockerfile_inline: |
-        FROM node:20-alpine
-        RUN apk add --no-cache python3 py3-pip && \
-            pip3 install mcp-proxy --break-system-packages
-        EXPOSE ${DRAWIO_MCP_PORT}
-    command:
-      - "mcp-proxy"
-      - "--port=${DRAWIO_MCP_PORT}"
-      - "--host=${DRAWIO_MCP_HOST}"
-      - "--pass-environment"
-      - "--"
-      - "npx"
-      - "-y"
-      - "@drawio/mcp"
+      dockerfile: docker/drawio-mcp.Dockerfile
     ports:
       - "${DRAWIO_MCP_PORT}:${DRAWIO_MCP_PORT}"
+    environment:
+      DRAWIO_MCP_PORT: ${DRAWIO_MCP_PORT}
     networks:
       - mcp-net
     restart: unless-stopped

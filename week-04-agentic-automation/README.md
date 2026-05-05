@@ -12,7 +12,7 @@ Agentic AI automation for network operations using MCP (Model Context Protocol) 
 
 Traditional automation scripts are great at repeating known tasks. But what happens when you need to reason across multiple tools, adapt to the current network state, or handle tasks that weren't scripted in advance? Agentic AI fills that gap:
 
-- **Intent-Driven Workflows:** Describe the goal in natural language — the agent determines the sequence of actions
+- **Intent-Driven Workflows:** Describe the goal in natural language: the agent determines the sequence of actions
 - **Multi-Tool Orchestration:** Chain NetBox queries, device connections, config pushes, and report generation automatically
 - **Safety-First Execution:** The agent validates configurations against live device state and waits for your approval before making changes
 - **Self-Documenting Outputs:** Save compliance reports, open GitHub issues, and generate network diagrams as part of the same conversation
@@ -35,7 +35,7 @@ This project wires together an AI assistant with a set of **MCP servers** so tha
 | **`AGENT.md`** | System Prompt | Instructions and rules loaded into the AI assistant at the start of every session |
 | **`docker-compose.yml`** | Infrastructure | Spins up all four MCP servers as Docker containers |
 | **`testbed.yaml`** | pyATS Testbed | Device inventory baseline for the Cisco Modeling Labs Always-On Sandbox |
-| **`.env.example`** | Configuration | Template for all environment variables — copy to `.env` and fill in your values |
+| **`.env.example`** | Configuration | Template for all environment variables: copy to `.env` and fill in your values |
 | **`compliance-reports/`** | Output Directory | Landing folder where the agent commits report files via GitHub MCP |
 
 ## MCP Servers
@@ -51,16 +51,16 @@ This project wires together an AI assistant with a set of **MCP servers** so tha
 
 ## Agent Capabilities (AGENT.md)
 
-The `AGENT.md` file is the **system prompt** loaded into your AI client. It defines the assistant's identity, tool usage rules, and safety guardrails.
+The `[AGENT.md](AGENT.md)` file is the **system prompt** loaded into your AI client. It defines the assistant's identity, tool usage rules, and safety guardrails.
 
 | Capability | Trigger | Behavior |
 |------------|---------|----------|
-| `Show Device Inventory` | "Show me the inventory" | Syncs NetBox → pyATS, displays result from pyATS |
-| `Execute CLI Commands` | "Run show interfaces on R1" | Reads current device state, executes read-only show commands |
-| `Validate & Push Configs` | "Configure loopback on R2" | Fetches running config, checks for conflicts, shows dry-run, waits for approval |
-| `Save Compliance Reports` | "Save the compliance report" | Commits file to `compliance-reports/` in the GitHub repository |
-| `Create GitHub Issues` | "Open a ticket for high CPU on R1" | Creates an issue in the repo with title, body, and labels |
-| `Generate Network Diagrams` | "Draw the core topology" | Creates diagram with DrawIO, renders Mermaid preview inline in chat |
+| `📋 Show Device Inventory` | "Show me the inventory" | Syncs NetBox → pyATS, displays result from pyATS |
+| `💻 Execute CLI Commands` | "Run show interfaces on R1" | Reads current device state, executes read-only show commands |
+| `🛡️ Validate & Push Configs` | "Configure loopback on R2" | Fetches running config, checks for conflicts, shows dry-run, waits for approval |
+| `📝 Save Compliance Reports` | "Save the compliance report" | Commits file to `compliance-reports/` in the GitHub repository |
+| `🐙 Create GitHub Issues` | "Open a ticket for high CPU on R1" | Creates an issue in the repo with title, body, and labels |
+| `🗺️ Generate Network Diagrams` | "Draw the core topology" | Creates diagram with DrawIO, renders Mermaid preview inline in chat |
 
 ## Setup
 
@@ -76,20 +76,37 @@ cp .env.example .env
 
 Open `.env` and fill in your real values:
 
-| Variable | Description |
-|----------|-------------|
-| `NETBOX_URL` | URL of your NetBox instance (reachable from containers) |
-| `NETBOX_TOKEN` | NetBox API token (shared with pyATS vault integration) |
-| `GITHUB_PAT` | GitHub fine-grained personal access token |
-| `CREDENTIALS_VAULT_BASE_URL` | URL pyATS uses to retrieve device credentials from NetBox |
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `NETBOX_URL` | Yes | URL of your NetBox API, reachable from Docker containers (for local Docker Desktop setups, `http://host.docker.internal:8080` is common) |
+| `NETBOX_TOKEN` | Yes | NetBox API token (also used by pyATS to access NetBox secrets) |
+| `NETBOX_MCP_PORT` | Yes | Port exposed by NetBox MCP (`8081` by default) |
+| `PYATS_MCP_PORT` | Yes | Port exposed by pyATS MCP (`8082` by default) |
+| `CREDENTIALS_VAULT_BASE_URL` | Yes | NetBox URL used by pyATS credentials vault integration (usually same as `NETBOX_URL`) |
+| `GITHUB_PAT` | Yes | GitHub fine-grained personal access token |
+| `GITHUB_MCP_PORT` | Yes | Port exposed by GitHub MCP (`8083` by default) |
+| `DRAWIO_MCP_PORT` | Yes | Port exposed by DrawIO MCP (`8084` by default) |
+| `GITHUB_TOOLSETS` | Optional | Comma-separated GitHub toolsets to expose |
+| `NETBOX_MCP_LOG_LEVEL` | Optional | NetBox MCP log level (default: `INFO`) |
+| `NETBOX_MCP_VERIFY_SSL` | Optional | NetBox MCP SSL verification flag (default: `true`) |
+
+Quick endpoint reference from the current `docker-compose.yml`:
+
+| Service | Default URL |
+|---------|-------------|
+| NetBox MCP | `http://localhost:8081/mcp` |
+| pyATS MCP | `http://localhost:8082/mcp` |
+| GitHub MCP | `http://localhost:8083/mcp` |
+| DrawIO MCP | `http://localhost:8084/mcp` |
+
 
 > **Don't have a NetBox instance?** You have two options:
 >
-> **Option A — Set up NetBox with the netbox-secrets plugin (full setup)**
+> **Option A: Set up NetBox with the netbox-secrets plugin (full setup)**
 >
 > This project relies on NetBox having the [netbox-secrets](https://github.com/Onemind-Services-LLC/netbox-secrets) plugin enabled. The pyATS MCP server fetches device credentials from NetBox secrets stored under the roles `username` and `password` for each device. To set this up yourself on a local Docker NetBox, follow [this guide](netbox_secrets_setup.md).
 >
-> **Option B — Skip NetBox entirely and use the provided testbed (recommended for a quick start)**
+> **Option B: Skip NetBox entirely and use the provided testbed (recommended for a quick start)**
 >
 > The included `testbed.yaml` already contains all devices from the **Cisco Modeling Labs Always-On Sandbox** on DevNet. Just [book the free sandbox](https://devnetsandbox.cisco.com) and connect via the provided VPN.
 >
@@ -113,7 +130,7 @@ Open `.env` and fill in your real values:
 >     - ./testbed.yaml:/app/testbed.yaml:ro
 >     - pyats-mcp-artifacts:/app/artifacts
 >   ports:
->     - "${PYATS_MCP_HOST}:${PYATS_MCP_HOST}"
+>     - "${PYATS_MCP_PORT}:${PYATS_MCP_PORT}"
 >   networks:
 >     - mcp-net
 >   restart: unless-stopped
@@ -129,10 +146,10 @@ This builds and starts four containers on the `mcp-net` bridge:
 
 | Container | Default Port |
 |-----------|-------------|
-| `netbox-mcp` | `8080` |
-| `pyats-mcp` | `8081` |
-| `github-mcp` | `8082` |
-| `drawio-mcp` | `8083` |
+| `netbox-mcp` | `8081` |
+| `pyats-mcp` | `8082` |
+| `github-mcp` | `8083` |
+| `drawio-mcp` | `8084` |
 
 Verify all containers are running:
 
@@ -140,14 +157,15 @@ Verify all containers are running:
 docker compose ps
 ```
 
-### 3. (Optional) Load the testbed
-
-The included `testbed.yaml` targets the **Cisco Modeling Labs Always-On Sandbox**. If you want to use it as a starting point for pyATS:
+Optional sanity checks:
 
 ```bash
-# Book the free sandbox at https://devnetsandbox.cisco.com
-# Look for "Cisco Modeling Labs - Open NRE" and connect via the provided VPN
+docker compose logs -f --tail=100 netbox-mcp pyats-mcp github-mcp drawio-mcp
 ```
+
+### 3. (Optional) Load the testbed
+
+The included `testbed.yaml` targets the [**Cisco Modeling Labs Always-On Sandbox**](https://devnetsandbox.cisco.com/DevNet/catalog/cml-sandbox_cml). If you want to use it as a starting point for pyATS.
 
 Adjust the IP addresses in `testbed.yaml` to match your sandbox allocation, or replace with your own devices.
 
@@ -158,83 +176,28 @@ Point your AI client (LibreChat, Claude Desktop, or any MCP-compatible client) t
 ```json
 {
   "mcpServers": {
-    "netbox": { "url": "http://localhost:8080/sse" },
-    "pyats":  { "url": "http://localhost:8081/sse" },
-    "github": { "url": "http://localhost:8082/sse" },
-    "drawio": { "url": "http://localhost:8083/sse" }
+    "netbox": { "url": "http://localhost:8081/mcp" },
+    "pyats":  { "url": "http://localhost:8082/mcp" },
+    "github": { "url": "http://localhost:8083/mcp" },
+    "drawio": { "url": "http://localhost:8084/mcp" }
   }
 }
 ```
 
-> Our YouTube video [Ep.4: From Intent to Action with Agentic Automation](https://youtu.be/YCMW6qSJiD0) showcases how to do this with LibreChat's web
+If your client supports MCP transport selection, use **Streamable HTTP** for all four servers.
 
 Load `AGENT.md` as the **system prompt** for your session.
 
 ## Running the Agent
 
-Once connected, interact with the assistant in plain language. No commands to memorize — just describe your intent:
+Once connected, interact in plain language and follow this simple pattern:
 
-**Show inventory:**
-```
-Show me the current device inventory
-```
+1. Ask for discovery (inventory or topology context).
+2. Ask for validation (checks, audits, command outputs).
+3. Ask for action (configuration, report commit, issue creation, diagram export).
 
-**Audit a device:**
-```
-Run a compliance check on R1 and save the report
-```
+> Our YouTube video **[Ep.4: From Intent to Action with Agentic Automation](https://youtu.be/YCMW6qSJiD0)** showcases how to onboard the MCP servers and create the agent with [LibreChat](https://www.librechat.ai/), along with some prompt examples!
 
-**Troubleshoot:**
-```
-Check the interface status on SW1 and SW2 and tell me if anything looks wrong
-```
-
-**Make a config change (safely):**
-```
-Add a loopback interface with IP 10.255.255.1/32 on R1
-```
-
-**Document the topology:**
-```
-Generate a diagram of all devices in the inventory
-```
-
-## Expected Output
-
-After a typical session, the agent will have:
-
-- Displayed device inventory synced from NetBox into pyATS
-- Executed show commands and explained the output
-- Validated a proposed configuration change against the running config and awaited your approval before pushing
-- Committed a compliance report to `compliance-reports/` in this repository
-- Opened a GitHub issue for any discovered anomalies
-- Rendered a Mermaid diagram inline and offered to save the DrawIO source
-
-**Example console output (docker compose):**
-
-```
-✔ Container netbox-mcp   Started
-✔ Container pyats-mcp    Started
-✔ Container github-mcp   Started
-✔ Container drawio-mcp   Started
-```
-
-**Example agent interaction:**
-
-```
-User:   Show me the device inventory
-
-Agent:  🔄 Syncing NetBox → pyATS...
-        ✅ Sync complete. Inventory from pyATS:
-
-        devices:
-          R1:  os=iosxe  platform=iol  ip=10.10.20.171  protocol=telnet
-          R2:  os=iosxe  platform=iol  ip=10.10.20.172  protocol=telnet
-          SW1: os=iosxe  platform=iol  ip=10.10.20.173  protocol=telnet
-          SW2: os=iosxe  platform=iol  ip=10.10.20.174  protocol=telnet
-
-        Would you like me to run a connectivity check on any of these devices?
-```
 
 ## Additional Resources
 
